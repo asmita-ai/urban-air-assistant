@@ -2,6 +2,9 @@
 
 > *A personalized, AI-driven platform empowering families and communities to navigate severe winter smog, adopt low-emission daily routines, safeguard indoor air quality, and track verifiable environmental impact.*
 
+🌐 **Live Deployed App**: [https://urban-air-assistant-iota.vercel.app](https://urban-air-assistant-iota.vercel.app)  
+📂 **GitHub Repository**: [https://github.com/asmita-ai/urban-air-assistant](https://github.com/asmita-ai/urban-air-assistant)
+
 ---
 
 ## 🏆 Project Overview
