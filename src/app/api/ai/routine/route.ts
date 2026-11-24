@@ -1,0 +1,28 @@
+import { NextRequest, NextResponse } from 'next/server';
+import { generateRoutinePlan } from '@/lib/gemini';
+import { AQIData, HouseholdProfile } from '@/types';
+
+export const runtime = 'nodejs';
+
+export async function POST(request: NextRequest) {
+  try {
+    const body = await request.json();
+    const { aqiData, profile } = body as { aqiData: AQIData; profile: HouseholdProfile };
+
+    if (!aqiData || !profile) {
+      return NextResponse.json(
+        { error: 'Missing aqiData or profile in request body' },
+        { status: 400 }
+      );
+    }
+
+    const plan = await generateRoutinePlan(aqiData, profile);
+    return NextResponse.json(plan, { status: 200 });
+  } catch (error: any) {
+    console.error('API /api/ai/routine error:', error);
+    return NextResponse.json(
+      { error: 'Failed to generate routine plan', message: error.message },
+      { status: 500 }
+    );
+  }
+}
