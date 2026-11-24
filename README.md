@@ -138,7 +138,7 @@ $$HVI = 20 + \min\left(40, \frac{\text{AQI}}{500} \times 40\right) + \sum V_{\te
 
 ### 1. Clone the repository
 ```bash
-git clone https://github.com/<your-username>/urban-air-assistant.git
+git clone https://github.com/asmita-ai/urban-air-assistant.git
 cd urban-air-assistant
 ```
 
