@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react';
 import { AQIData, HouseholdProfile, RoutinePlan, IAQAuditResult } from '@/types';
 import { Navbar } from '@/components/Navbar';
 import { AQIDashboard } from '@/components/AQIDashboard';
+import { CityHubGallery } from '@/components/CityHubGallery';
 import { HouseholdConfig } from '@/components/HouseholdConfig';
 import { RoutinePlanner } from '@/components/RoutinePlanner';
 import { IAQLab } from '@/components/IAQLab';
@@ -194,11 +195,19 @@ export default function Home() {
         ) : aqiData ? (
           <>
             {activeTab === 'dashboard' && (
-              <AQIDashboard
-                data={aqiData}
-                onExploreRoutines={() => setActiveTab('routine')}
-                onExploreIAQ={() => setActiveTab('iaq')}
-              />
+              <>
+                <CityHubGallery
+                  currentCity={currentCity}
+                  onSelectCity={handleSelectCity}
+                  onForceRefresh={() => loadAQIData(currentCity)}
+                  isLoading={isLoadingAQI}
+                />
+                <AQIDashboard
+                  data={aqiData}
+                  onExploreRoutines={() => setActiveTab('routine')}
+                  onExploreIAQ={() => setActiveTab('iaq')}
+                />
+              </>
             )}
 
             {activeTab === 'routine' && (
