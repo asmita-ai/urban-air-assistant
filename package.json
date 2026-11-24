@@ -2,6 +2,7 @@
   "name": "vayumitra-urban-air-assistant",
   "version": "1.0.0",
   "description": "GenAI-powered Urban Air Quality Assistant helping families navigate winter smog with low-emission routines, indoor air hacks, and sustainable impact.",
+  "author": "Asmita Karmakar",
   "private": true,
   "scripts": {
     "dev": "next dev",

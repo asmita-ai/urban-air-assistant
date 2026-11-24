@@ -1,14 +1,13 @@
-# 🌫️ VayuMitra (वायुमित्र) — GenAI Urban Air Quality & Winter Smog Assistant
+# 🌫️ VayuMitra — Urban Air Quality & Winter Smog Assistant
 
-> **Prompt Wars Virtual — Challenge 6: Urban Air Quality Assistant**  
-> *A personalized, GenAI-driven companion empowering families and communities to navigate severe winter smog, adopt low-emission daily routines, safeguard indoor air quality, and track verifiable environmental impact.*
+> *A personalized, AI-driven platform empowering families and communities to navigate severe winter smog, adopt low-emission daily routines, safeguard indoor air quality, and track verifiable environmental impact.*
 
 ---
 
 ## 🏆 Project Overview
 
 - **Chosen Vertical**: **[Challenge 6] Urban Air Quality Assistant**
-- **Target Persona & Context**: Urban families in high-smog Indian corridors (Delhi NCR, Kolkata, Mumbai, Lucknow, Patna) navigating post-Diwali seasonal thermal inversions, protecting vulnerable family members (infants, asthmatic elders, school children, daily commuters), while actively reducing personal transit emissions.
+- **Target Persona & Context**: Urban families in high-smog corridors (Delhi NCR, Kolkata, Mumbai, Lucknow, Patna) navigating post-Diwali seasonal thermal inversions, protecting vulnerable family members (infants, asthmatic elders, school children, daily commuters), while actively reducing personal transit emissions.
 - **AI Engine**: Google Gemini (`gemini-1.5-flash`) via `@google/generative-ai`
 - **Real-Time Ground-Truth Data**: Open-Meteo Air Quality API & Indian Central Pollution Control Board (CPCB) NAAQS standard calculations
 - **Framework**: Next.js (App Router), TypeScript, Tailwind CSS, Vitest
@@ -18,7 +17,7 @@
 ## 🌟 Key Features & Core Pillars
 
 ### 1. 📡 Ground-Truth Real-Time Air Quality & Inversion Monitor
-- **Zero Hallucination Guarantee**: As mandated by the challenge SME, Gemini is never used to generate current pollutant metrics. Real-time sensor metrics are retrieved live from Open-Meteo and ground-calibrated against CPCB benchmarks.
+- **Zero Hallucination Guarantee**: Raw air quality values are strictly never generated or estimated by the LLM. Live sensor metrics are retrieved in real-time from Open-Meteo and ground-calibrated against official Indian CPCB benchmarks, ensuring 100% scientific integrity.
 - **Full Chemical Pollutants Spectrum**: Real-time tracking of **PM2.5, PM10, NO₂, SO₂, CO, and Tropospheric Ozone (O₃)** with CPCB 24-hour safe threshold comparisons.
 - **Atmospheric Winter Inversion Diagnostics**: Correlates ground temperature, relative humidity, and calm wind vectors to explain *why* toxic smog remains trapped near the surface.
 - **24-Hour Hourly Smog Profile**: Highlights time-stamped hourly predictions with dynamic **Safe Ventilation Windows**.
@@ -188,4 +187,4 @@ npm start
 ---
 
 ## 📄 License
-MIT License. Built for the Prompt Wars Virtual Challenge 6.
+MIT License. Developed by Asmita Karmakar.

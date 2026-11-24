@@ -242,7 +242,7 @@ export default function Home() {
           <div className="flex items-center space-x-2">
             <span className="font-bold text-slate-200">VayuMitra</span>
             <span>•</span>
-            <span>Urban Air Quality Assistant (Prompt Wars Challenge 6)</span>
+            <span>Urban Air Quality & Smog Defense Assistant</span>
           </div>
 
           <div className="flex items-center space-x-4 text-[11px]">

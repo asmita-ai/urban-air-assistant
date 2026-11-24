@@ -5,7 +5,7 @@ export const metadata: Metadata = {
   title: 'VayuMitra | GenAI Urban Air Quality & Winter Smog Assistant',
   description: 'AI-powered companion helping families navigate severe winter smog with personalized low-emission routines, indoor air hacks, and sustainable impact quantification.',
   keywords: ['Air Quality', 'AQI', 'Delhi Smog', 'Winter Pollution', 'GenAI', 'Low Emission Routines', 'Indoor Air Quality', 'CPCB India'],
-  authors: [{ name: 'VayuMitra Team' }],
+  authors: [{ name: 'Asmita Karmakar' }],
 };
 
 export const viewport: Viewport = {
