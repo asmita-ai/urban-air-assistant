@@ -89,7 +89,6 @@ function generateDeterministicRoutinePlan(
   commuteStats: ReturnType<typeof calculateCommuteImpact>
 ): RoutinePlan {
   const isSevere = aqiData.aqi >= 300;
-  const isModerate = aqiData.aqi >= 150;
 
   const child = profile.familyMembers.find((m) => m.type === 'child' || m.type === 'infant');
   const senior = profile.familyMembers.find((m) => m.type === 'senior');
@@ -133,7 +132,7 @@ function generateDeterministicRoutinePlan(
         ? 'Keep sports sessions strictly indoors or switch to low-intensity board / mental games'
         : 'Trip Chaining: combine grocery, banking, and pickup into a single planned 20-minute loop',
       targetMember: child ? `${child.name} (Child)` : 'Household Coordinator',
-      exposureRisk: isSevere ? ('High' as const) : ('Moderate' as const) as any,
+      exposureRisk: isSevere ? ('High' as const) : ('Medium' as const),
       emissionsAvoidedKgCO2: commuteStats.tripChainingSavings.co2KgSaved,
       pmAvoidedGrams: commuteStats.tripChainingSavings.pmGramsSaved,
       justification: 'Combining short errands eliminates cold engine starts which emit 3x more hydrocarbons and PM per kilometer than warmed engines.',

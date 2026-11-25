@@ -4,13 +4,10 @@ import React, { useState } from 'react';
 import { SustainableImpactAction, AQIData } from '@/types';
 import {
   Activity,
-  CheckCircle2,
-  Circle,
   Leaf,
   Share2,
   Award,
   TrendingDown,
-  Sparkles,
   TreePine,
   Check
 } from 'lucide-react';

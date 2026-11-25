@@ -1,19 +1,15 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { INDIAN_CITIES, CityPreset } from '@/lib/cities';
+import { INDIAN_CITIES } from '@/lib/cities';
 import {
-  Compass,
-  MapPin,
   RefreshCw,
   Play,
   Pause,
   Grid,
   List,
   Clock,
-  Sparkles,
   Radio,
-  SlidersHorizontal,
   Navigation
 } from 'lucide-react';
 
@@ -91,7 +87,7 @@ export const CityHubGallery: React.FC<CityHubGalleryProps> = ({
         setGeoLocating(false);
         onSelectCity('My Local Station (GPS)', pos.coords.latitude, pos.coords.longitude);
       },
-      (err) => {
+      (_err) => {
         setGeoLocating(false);
         alert('Could not retrieve GPS coordinates. Defaulting to Delhi NCR.');
       },

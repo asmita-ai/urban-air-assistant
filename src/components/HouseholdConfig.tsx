@@ -9,7 +9,6 @@ import {
   Trash2,
   HeartPulse,
   Car,
-  Home,
   Shield,
   Leaf,
   Sliders,
@@ -185,7 +184,7 @@ export const HouseholdConfig: React.FC<HouseholdConfigProps> = ({
                 />
                 <select
                   value={newMemberType}
-                  onChange={(e) => setNewMemberType(e.target.value as any)}
+                  onChange={(e) => setNewMemberType(e.target.value as HouseholdMember['type'])}
                   className="bg-slate-900 border border-slate-700 rounded-lg px-2.5 py-1.5 text-xs text-white focus:outline-none focus:ring-1 focus:ring-teal-400"
                 >
                   <option value="child">Child / Toddler (≤10)</option>

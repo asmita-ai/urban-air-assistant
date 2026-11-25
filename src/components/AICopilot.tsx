@@ -3,14 +3,11 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { ChatMessage, AQIData, HouseholdProfile } from '@/types';
 import {
-  MessageSquare,
   Send,
   Sparkles,
   Bot,
   User,
   RotateCcw,
-  ShieldAlert,
-  HelpCircle,
   Lightbulb
 } from 'lucide-react';
 
@@ -91,7 +88,7 @@ How can I help protect your family or optimize your low-emission routine today?`
       };
 
       setMessages((prev) => [...prev, assistantMsg]);
-    } catch (err) {
+    } catch {
       const errorMsg: ChatMessage = {
         id: `err-${Date.now()}`,
         role: 'assistant',

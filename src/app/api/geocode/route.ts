@@ -2,6 +2,14 @@ import { NextRequest, NextResponse } from 'next/server';
 
 export const runtime = 'nodejs';
 
+interface GeocodeApiItem {
+  name: string;
+  admin1?: string;
+  country?: string;
+  latitude: number;
+  longitude: number;
+}
+
 export async function GET(request: NextRequest) {
   try {
     const { searchParams } = new URL(request.url);
@@ -21,7 +29,8 @@ export async function GET(request: NextRequest) {
     }
 
     const data = await res.json();
-    const results = (data.results || []).map((item: any) => ({
+    const rawResults: GeocodeApiItem[] = data.results || [];
+    const results = rawResults.map((item) => ({
       name: item.name,
       state: item.admin1 || '',
       country: item.country || 'India',
@@ -30,8 +39,9 @@ export async function GET(request: NextRequest) {
     }));
 
     return NextResponse.json({ results });
-  } catch (err: any) {
-    console.error('Geocode search failed:', err);
+  } catch (err: unknown) {
+    const errorMsg = err instanceof Error ? err.message : 'Unknown geocoding error';
+    console.error('Geocode search failed:', errorMsg);
     return NextResponse.json({ results: [] });
   }
 }

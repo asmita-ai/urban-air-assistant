@@ -23,10 +23,11 @@ export async function POST(request: NextRequest) {
 
     const reply = await getChatResponse(message, history || [], aqiData, profile);
     return NextResponse.json({ reply }, { status: 200 });
-  } catch (error: any) {
-    console.error('API /api/ai/chat error:', error);
+  } catch (error: unknown) {
+    const errorMsg = error instanceof Error ? error.message : 'Unknown error';
+    console.error('API /api/ai/chat error:', errorMsg);
     return NextResponse.json(
-      { error: 'Failed to process chat message', message: error.message },
+      { error: 'Failed to process chat message', message: errorMsg },
       { status: 500 }
     );
   }

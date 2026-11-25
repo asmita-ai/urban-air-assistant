@@ -18,10 +18,11 @@ export async function POST(request: NextRequest) {
 
     const plan = await generateRoutinePlan(aqiData, profile);
     return NextResponse.json(plan, { status: 200 });
-  } catch (error: any) {
-    console.error('API /api/ai/routine error:', error);
+  } catch (error: unknown) {
+    const errorMsg = error instanceof Error ? error.message : 'Unknown error';
+    console.error('API /api/ai/routine error:', errorMsg);
     return NextResponse.json(
-      { error: 'Failed to generate routine plan', message: error.message },
+      { error: 'Failed to generate routine plan', message: errorMsg },
       { status: 500 }
     );
   }

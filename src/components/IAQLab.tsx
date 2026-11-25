@@ -4,14 +4,8 @@ import React, { useState } from 'react';
 import { IAQAuditResult, AQIData, HouseholdProfile } from '@/types';
 import {
   Home,
-  Wind,
   Fan,
   Leaf,
-  Sparkles,
-  AlertCircle,
-  CheckCircle,
-  HelpCircle,
-  Shield,
   Layers,
   Wrench,
   Sun
@@ -27,7 +21,7 @@ interface IAQLabProps {
 export const IAQLab: React.FC<IAQLabProps> = ({
   audit,
   aqiData,
-  profile,
+  profile: _profile,
   isLoading,
 }) => {
   // Interactive Room Dimension CADR Calculator state

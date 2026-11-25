@@ -18,10 +18,11 @@ export async function GET(request: NextRequest) {
         'Cache-Control': 'public, s-maxage=900, stale-while-revalidate=1800',
       },
     });
-  } catch (error: any) {
-    console.error('API /api/aqi error:', error);
+  } catch (error: unknown) {
+    const errorMsg = error instanceof Error ? error.message : 'Unknown error';
+    console.error('API /api/aqi error:', errorMsg);
     return NextResponse.json(
-      { error: 'Failed to fetch air quality data', message: error.message },
+      { error: 'Failed to fetch air quality data', message: errorMsg },
       { status: 500 }
     );
   }

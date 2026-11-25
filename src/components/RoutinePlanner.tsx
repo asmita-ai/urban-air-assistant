@@ -7,13 +7,10 @@ import {
   Sparkles,
   Leaf,
   Clock,
-  ArrowRight,
   ShieldCheck,
   Zap,
   TrendingDown,
-  RefreshCw,
-  Layers,
-  MapPin
+  RefreshCw
 } from 'lucide-react';
 
 interface RoutinePlannerProps {

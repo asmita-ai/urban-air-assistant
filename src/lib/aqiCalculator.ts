@@ -189,7 +189,7 @@ export function calculateHouseholdVulnerability(profile: HouseholdProfile, aqi: 
 /**
  * Commute emission & exposure impact calculator
  */
-export function calculateCommuteImpact(distanceKm: number, currentMode: string) {
+export function calculateCommuteImpact(distanceKm: number, _currentMode?: string) {
   // Baseline: Average petrol car emission factor in urban India: ~0.165 kg CO2/km, 0.05g PM2.5/km
   // Two-wheeler: ~0.045 kg CO2/km, 0.03g PM2.5/km
   // Metro: ~0.015 kg CO2/passenger-km, negligible localized PM2.5
@@ -208,6 +208,10 @@ export function calculateCommuteImpact(distanceKm: number, currentMode: string) 
       co2KgSaved: Number((carCO2 - metroCO2).toFixed(2)),
       pmGramsSaved: Number((carPM * 0.95).toFixed(2)),
       exposureReductionPct: 75, // Metro stations/trains have HEPA HVAC
+    },
+    busSavings: {
+      co2KgSaved: Number((carCO2 - busCO2).toFixed(2)),
+      pmGramsSaved: Number((carPM * 0.85).toFixed(2)),
     },
     carpoolSavings: {
       co2KgSaved: Number((carCO2 * 0.6).toFixed(2)),

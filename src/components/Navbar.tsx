@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import { Wind, ShieldAlert, Sparkles, Home, Calendar, Activity, MessageSquare, ChevronDown, MapPin, Search } from 'lucide-react';
+import { Wind, Home, Calendar, Activity, MessageSquare, ChevronDown, MapPin, Search } from 'lucide-react';
 import { AQIData } from '@/types';
 import { INDIAN_CITIES } from '@/lib/cities';
 import { getAQIColor } from '@/lib/aqiCalculator';
@@ -12,7 +12,7 @@ interface NavbarProps {
   aqiData: AQIData | null;
   activeTab: string;
   setActiveTab: (tab: string) => void;
-  isLoading: boolean;
+  isLoading?: boolean;
 }
 
 export const Navbar: React.FC<NavbarProps> = ({
@@ -21,7 +21,7 @@ export const Navbar: React.FC<NavbarProps> = ({
   aqiData,
   activeTab,
   setActiveTab,
-  isLoading,
+  isLoading: _isLoading,
 }) => {
   const [isCityDropdownOpen, setIsCityDropdownOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');

@@ -10,17 +10,7 @@ import { RoutinePlanner } from '@/components/RoutinePlanner';
 import { IAQLab } from '@/components/IAQLab';
 import { ImpactTracker } from '@/components/ImpactTracker';
 import { AICopilot } from '@/components/AICopilot';
-import {
-  ShieldAlert,
-  Wind,
-  Sparkles,
-  Sliders,
-  ChevronDown,
-  ChevronUp,
-  RefreshCw,
-  Github,
-  Heart
-} from 'lucide-react';
+import { Sliders, ChevronDown, ChevronUp } from 'lucide-react';
 
 const INITIAL_PROFILE: HouseholdProfile = {
   city: 'Delhi NCR (Central)',
@@ -136,7 +126,6 @@ export default function Home() {
         aqiData={aqiData}
         activeTab={activeTab}
         setActiveTab={setActiveTab}
-        isLoading={isLoadingAQI}
       />
 
       {/* Main Content Area */}

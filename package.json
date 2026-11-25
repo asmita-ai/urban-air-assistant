@@ -8,7 +8,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint",
+    "lint": "eslint --ext .ts,.tsx src/",
     "test": "vitest run"
   },
   "dependencies": {
@@ -21,11 +21,18 @@
     "tailwind-merge": "^2.5.4"
   },
   "devDependencies": {
+    "@eslint/eslintrc": "^3.3.7",
+    "@eslint/js": "^10.0.1",
     "@types/node": "^22.10.1",
     "@types/react": "^18.3.12",
     "@types/react-dom": "^18.3.1",
+    "@typescript-eslint/eslint-plugin": "^8.74.0",
+    "@typescript-eslint/parser": "^8.74.0",
     "autoprefixer": "^10.4.20",
+    "eslint": "^8.57.1",
+    "eslint-config-next": "^16.4.6",
     "postcss": "^8.4.49",
+    "prettier": "^3.10.1",
     "tailwindcss": "^3.4.15",
     "typescript": "^5.6.3",
     "vite": "^8.3.8",

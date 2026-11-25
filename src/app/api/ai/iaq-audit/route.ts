@@ -18,10 +18,11 @@ export async function POST(request: NextRequest) {
 
     const audit = await generateIAQAudit(aqiData, profile);
     return NextResponse.json(audit, { status: 200 });
-  } catch (error: any) {
-    console.error('API /api/ai/iaq-audit error:', error);
+  } catch (error: unknown) {
+    const errorMsg = error instanceof Error ? error.message : 'Unknown error';
+    console.error('API /api/ai/iaq-audit error:', errorMsg);
     return NextResponse.json(
-      { error: 'Failed to generate IAQ audit', message: error.message },
+      { error: 'Failed to generate IAQ audit', message: errorMsg },
       { status: 500 }
     );
   }
