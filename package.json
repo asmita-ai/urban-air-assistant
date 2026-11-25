@@ -9,8 +9,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint --ext .ts,.tsx src/",
-    "format": "prettier --write \"src/**/*.{ts,tsx}\"",
-    "format:check": "prettier --check \"src/**/*.{ts,tsx}\"",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
     "test": "vitest run"
   },
   "dependencies": {
@@ -24,8 +24,6 @@
     "zod": "^4.6.7"
   },
   "devDependencies": {
-    "@eslint/eslintrc": "^3.3.7",
-    "@eslint/js": "^10.0.1",
     "@types/node": "^22.10.1",
     "@types/react": "^18.3.12",
     "@types/react-dom": "^18.3.1",

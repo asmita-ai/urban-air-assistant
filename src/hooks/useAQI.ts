@@ -33,8 +33,33 @@ export function useAQI(initialCity: string = 'Delhi NCR (Central)') {
   }, []);
 
   useEffect(() => {
-    loadAQIData(initialCity);
-  }, [initialCity, loadAQIData]);
+    let active = true;
+
+    async function initCity() {
+      try {
+        const url = `/api/aqi?city=${encodeURIComponent(initialCity)}`;
+        const res = await fetch(url);
+        if (!res.ok) throw new Error(`Status: ${res.status}`);
+        const data: AQIData = await res.json();
+        if (active) {
+          setAqiData(data);
+          setCurrentCity(data.city);
+          setIsLoading(false);
+        }
+      } catch (err: unknown) {
+        if (active) {
+          setError(err instanceof Error ? err.message : 'Network error');
+          setIsLoading(false);
+        }
+      }
+    }
+
+    initCity();
+
+    return () => {
+      active = false;
+    };
+  }, [initialCity]);
 
   return {
     currentCity,

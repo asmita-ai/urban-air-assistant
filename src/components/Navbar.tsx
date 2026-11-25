@@ -10,6 +10,7 @@ import {
   ChevronDown,
   MapPin,
   Search,
+  RefreshCw,
 } from 'lucide-react';
 import { AQIData } from '@/types';
 import { INDIAN_CITIES } from '@/lib/cities';
@@ -30,7 +31,7 @@ export const Navbar: React.FC<NavbarProps> = ({
   aqiData,
   activeTab,
   setActiveTab,
-  isLoading: _isLoading,
+  isLoading = false,
 }) => {
   const [isCityDropdownOpen, setIsCityDropdownOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
@@ -98,10 +99,15 @@ export const Navbar: React.FC<NavbarProps> = ({
           <div className="relative">
             <button
               onClick={() => setIsCityDropdownOpen(!isCityDropdownOpen)}
-              className="flex items-center space-x-2 px-3.5 py-1.5 rounded-lg bg-slate-800/80 hover:bg-slate-700/80 border border-slate-700 text-sm transition-all focus:outline-none focus:ring-2 focus:ring-teal-400"
+              className="flex items-center space-x-2 px-3.5 py-1.5 rounded-lg bg-slate-800/80 hover:bg-slate-700/80 border border-slate-700 text-sm transition-all focus:outline-none focus:ring-2 focus:ring-teal-400 cursor-pointer"
               aria-label="Select City"
+              aria-expanded={isCityDropdownOpen}
             >
-              <MapPin className="w-4 h-4 text-teal-400" />
+              {isLoading ? (
+                <RefreshCw className="w-4 h-4 text-teal-400 animate-spin" aria-hidden="true" />
+              ) : (
+                <MapPin className="w-4 h-4 text-teal-400" aria-hidden="true" />
+              )}
               <span className="font-medium text-slate-200 truncate max-w-[140px] sm:max-w-[200px]">
                 {currentCity}
               </span>

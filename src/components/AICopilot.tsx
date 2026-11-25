@@ -9,15 +9,25 @@ interface AICopilotProps {
   profile: HouseholdProfile;
 }
 
+let messageCounter = 0;
+function createMessageId(prefix: string): string {
+  messageCounter += 1;
+  return `${prefix}-${messageCounter}`;
+}
+
+function getCurrentTimeStr(): string {
+  return new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+}
+
 export const AICopilot: React.FC<AICopilotProps> = ({ aqiData, profile }) => {
-  const [messages, setMessages] = useState<ChatMessage[]>([
+  const [messages, setMessages] = useState<ChatMessage[]>(() => [
     {
       id: 'welcome',
       role: 'assistant',
       content: `Namaste! I am **VayuMitra**, your GenAI Urban Air Quality Copilot. I'm currently tracking live conditions in **${aqiData.city}** (AQI: **${aqiData.aqi} ${aqiData.category}**). 
 
 How can I help protect your family or optimize your low-emission routine today?`,
-      timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+      timestamp: 'Active Now',
     },
   ]);
   const [input, setInput] = useState('');
@@ -44,10 +54,10 @@ How can I help protect your family or optimize your low-emission routine today?`
     if (!text.trim() || isTyping) return;
 
     const userMsg: ChatMessage = {
-      id: `usr-${Date.now()}`,
+      id: createMessageId('usr'),
       role: 'user',
       content: text.trim(),
-      timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+      timestamp: getCurrentTimeStr(),
     };
 
     setMessages((prev) => [...prev, userMsg]);
@@ -74,20 +84,20 @@ How can I help protect your family or optimize your low-emission routine today?`
       const data = await res.json();
 
       const assistantMsg: ChatMessage = {
-        id: `ast-${Date.now()}`,
+        id: createMessageId('ast'),
         role: 'assistant',
         content: data.reply || 'I could not generate an answer right now. Please try again.',
-        timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+        timestamp: getCurrentTimeStr(),
       };
 
       setMessages((prev) => [...prev, assistantMsg]);
     } catch {
       const errorMsg: ChatMessage = {
-        id: `err-${Date.now()}`,
+        id: createMessageId('err'),
         role: 'assistant',
         content:
           'I encountered an issue connecting to the Gemini server. However, based on current AQI, keep your home windows sealed and wear an N95 mask outdoors.',
-        timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+        timestamp: getCurrentTimeStr(),
       };
       setMessages((prev) => [...prev, errorMsg]);
     } finally {
@@ -98,10 +108,10 @@ How can I help protect your family or optimize your low-emission routine today?`
   const handleResetChat = () => {
     setMessages([
       {
-        id: `welcome-${Date.now()}`,
+        id: createMessageId('welcome'),
         role: 'assistant',
         content: `Conversation reset. I am ready to advise you on navigating smog in **${aqiData.city}** (AQI: **${aqiData.aqi}**). What would you like to know?`,
-        timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+        timestamp: getCurrentTimeStr(),
       },
     ]);
   };

@@ -1,6 +1,6 @@
 # 🌫️ VayuMitra — Urban Air Quality & Winter Smog Assistant
 
-> *A personalized, AI-driven platform empowering families and communities to navigate severe winter smog, adopt low-emission daily routines, safeguard indoor air quality, and track verifiable environmental impact.*
+> _A personalized, AI-driven platform empowering families and communities to navigate severe winter smog, adopt low-emission daily routines, safeguard indoor air quality, and track verifiable environmental impact._
 
 🌐 **Live Deployed App**: [https://urban-air-assistant-iota.vercel.app](https://urban-air-assistant-iota.vercel.app)  
 📂 **GitHub Repository**: [https://github.com/asmita-ai/urban-air-assistant](https://github.com/asmita-ai/urban-air-assistant)
@@ -20,17 +20,20 @@
 ## 🌟 Key Features & Core Pillars
 
 ### 1. 📡 Ground-Truth Real-Time Air Quality & Inversion Monitor
+
 - **Zero Hallucination Guarantee**: Raw air quality values are strictly never generated or estimated by the LLM. Live sensor metrics are retrieved in real-time from Open-Meteo and ground-calibrated against official Indian CPCB benchmarks, ensuring 100% scientific integrity.
 - **Full Chemical Pollutants Spectrum**: Real-time tracking of **PM2.5, PM10, NO₂, SO₂, CO, and Tropospheric Ozone (O₃)** with CPCB 24-hour safe threshold comparisons.
-- **Atmospheric Winter Inversion Diagnostics**: Correlates ground temperature, relative humidity, and calm wind vectors to explain *why* toxic smog remains trapped near the surface.
+- **Atmospheric Winter Inversion Diagnostics**: Correlates ground temperature, relative humidity, and calm wind vectors to explain _why_ toxic smog remains trapped near the surface.
 - **24-Hour Hourly Smog Profile**: Highlights time-stamped hourly predictions with dynamic **Safe Ventilation Windows**.
 
 ### 2. 👨‍👩‍👧‍👦 Deep Household Personalization & Vulnerability Index (HVI)
+
 - **Multi-Member Profile Management**: Supports configurable household structures (infants, school children, senior citizens, and patients with asthma, COPD, or cardiac conditions).
 - **Household Vulnerability Index (HVI)**: Algorithmic composite score (0–100) dynamically reacting to household composition, commute distance, home building type, air purifier presence, and indoor plant count.
 - **Differentiated Recommendations**: Ensures two users in the same city receive vastly different guidance tailored to their life situations.
 
 ### 3. 🗓️ GenAI Low-Emission Daily Routine Planner
+
 - **Time-Slot Specific Action Plans**: Morning (06:00–11:00), Afternoon (11:00–17:00), Evening (17:00–22:00), and Night protocols.
 - **Sustainable Alternatives**:
   - Shifts outdoor workouts away from morning thermal inversion peaks (06:00–08:30 AM).
@@ -40,19 +43,22 @@
 - **Scientific Justifications**: Explains the exact physiological and environmental rationale for every recommendation.
 
 ### 4. 🧪 Indoor Air Quality (IAQ) Lab & Hacks
+
 - **Indoor vs Outdoor Attenuation Gauge**: Visualizes indoor AQI differential based on home sealing and purifier status.
 - **Safe Natural Ventilation Window Predictor**: Identifies the exact mid-afternoon solar heating window (typically 13:00–15:30) when ground-level smog concentrations thin out by up to 35%.
 - **Interactive Room CADR Calculator**: Computes required Clean Air Delivery Rate (in CFM and m³/h) based on room cubic volume ($L \times W \times H$) to achieve 4.5 Air Changes per Hour (ACH).
 - **DIY Box-Fan Filter Hack Tutorial**: Step-by-step instructions for assembling a ₹1,500 DIY MERV 13 / HEPA fan filter delivering 80% of commercial purifier performance.
-- **NASA Clean Air Plants Matrix**: Specific guidance on Snake Plant (*Sansevieria*), Areca Palm, Spider Plant, and Money Plant (*Pothos*), with oxygen cycles and VOC absorption metrics.
+- **NASA Clean Air Plants Matrix**: Specific guidance on Snake Plant (_Sansevieria_), Areca Palm, Spider Plant, and Money Plant (_Pothos_), with oxygen cycles and VOC absorption metrics.
 - **Science-Backed Domestic Hacks**: Wet mopping vs dry sweeping particle aerosolization, door-draft snake sealing, and cooking spice (tadka) exhaust containment.
 
 ### 5. 📉 Direct Impact & Community Action Tracker
+
 - **Interactive Commitments Checklist**: Track daily actions like metro transit, trip chaining, wet mopping, and N95 usage.
 - **Cumulative Footprint Tallies**: Live calculation of total personal CO₂ saved (kg), particulate matter prevented (g), and tree-day absorption equivalents.
 - **Shareable Clean Air Commitment Card**: One-click formatted summary copyable to clipboard for WhatsApp and LinkedIn.
 
 ### 6. 🤖 Vayu AI Copilot (Gemini-Powered)
+
 - Interactive conversational assistant aware of current city, live AQI, atmospheric factors, and household profile.
 - Answers complex queries regarding mask selection (N95 vs surgical), child school attendance, purifier troubleshooting, and emergency symptoms.
 
@@ -89,25 +95,30 @@
 ## 🔬 Approach and Logic
 
 ### 1. Indian CPCB AQI Calculation Formula
+
 The application calculates AQI using the official Central Pollution Control Board (CPCB) linear interpolation sub-index formula:
 
 $$I_p = \left[\frac{I_{hi} - I_{lo}}{B_{hi} - B_{lo}}\right] \times (C_p - B_{lo}) + I_{lo}$$
 
 Where:
+
 - $C_p$ is pollutant concentration (PM2.5, PM10).
 - $B_{hi}, B_{lo}$ are breakpoint concentrations according to Indian National Ambient Air Quality Standards (NAAQS).
 - $I_{hi}, I_{lo}$ are AQI index breakpoints.
 
 ### 2. Household Vulnerability Score (HVI)
+
 $$HVI = 20 + \min\left(40, \frac{\text{AQI}}{500} \times 40\right) + \sum V_{\text{members}} - M_{\text{purifier}} - M_{\text{plants}} \pm C_{\text{commute}}$$
+
 - **Vulnerable members**: Infants (+15), Children (+8), Seniors (+12), Respiratory/Asthma (+20).
 - **Protective mitigations**: HEPA Air Purifier (-15), Indoor bio-filtration plants (-5).
 - **Commute exposure**: Open two-wheeler/cycle (+10), Remote WFH (-10).
 
 ### 3. Transit Emission Reductions
+
 - Standard petrol car emission factor in urban traffic: $\approx 0.165\text{ kg CO}_2/\text{km}$, $0.05\text{g PM}/\text{km}$.
 - Delhi Metro electrified transit: $\approx 0.015\text{ kg CO}_2/\text{passenger-km}$.
-- A daily 16 km one-way commute (32 km roundtrip) switched to Metro avoids **$4.8\text{ kg CO}_2$** and **$1.5\text{g of PM}$** emissions while lowering passenger inhaled exposure by $75\%$.
+- A daily 16 km one-way commute (32 km roundtrip) switched to Metro avoids **$4.8\text{ kg CO}\_2$** and **$1.5\text{g of PM}$** emissions while lowering passenger inhaled exposure by $75\%$.
 
 ---
 
@@ -121,47 +132,56 @@ $$HVI = 20 + \min\left(40, \frac{\text{AQI}}{500} \times 40\right) + \sum V_{\te
 
 ## 🛡️ Evaluation Criteria Alignment
 
-| Evaluation Parameter | How VayuMitra Excels |
-| :--- | :--- |
-| **Code Quality** | Strict TypeScript throughout with 0 type bypasses, modular component architecture (all large components decomposed into single-responsibility units), custom hooks (`useAQI`, `useHousehold`, `usePlanAndAudit`), centralized domain constants, 100% Prettier code style compliance (`npm run format:check`), and full ESLint compliance (`npm run lint`). |
-| **Security & Validation** | Zero exposed client keys; server-side API proxying; strict runtime input validation using Zod schemas on all API endpoints; Gemini LLM output schema validation; sliding-window rate limiting (60 req/min per IP); sanitized error handling preventing internal stack or credential leaks; clean dependency tree with 0 npm vulnerabilities. |
-| **Continuous Integration (CI)** | Production-grade GitHub Actions CI workflow (`.github/workflows/ci.yml`) automatically enforcing format checks, linting, TypeScript strict verification, unit tests, and Next.js build compilation on every commit. |
-| **Efficiency** | 15-minute in-memory caching for external AQI queries; minimal re-renders; static page prerendering; lightweight icons and bundle size. |
-| **Testing** | 21 passing automated tests across 6 Vitest suites covering Indian CPCB sub-index calculations, vulnerability scoring, commute emission math, API route status codes, Zod schema validation, and mocked offline-resilient telemetry. |
-| **Accessibility (a11y)** | Semantic HTML5 landmark structure (`header`, `main`, `section`, `footer`), high-contrast CPCB color-coded badges, keyboard navigation, comprehensive ARIA attributes (`role="region"`, `role="checkbox"`, `role="switch"`, `aria-label`, `aria-valuenow`, `aria-valuemin`, `aria-valuemax`, `aria-checked`), and screen-reader support. |
-| **Problem Statement Alignment** | Directly tackles winter smog, personalizing low-emission routines and indoor air hacks for families, while explaining *why* choices matter. |
+| Evaluation Parameter            | How VayuMitra Excels                                                                                                                                                                                                                                                                                                                                       |
+| :------------------------------ | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Code Quality**                | Strict TypeScript throughout with 0 type bypasses, modular component architecture (all large components decomposed into single-responsibility units), custom hooks (`useAQI`, `useHousehold`, `usePlanAndAudit`), centralized domain constants, 100% Prettier code style compliance (`npm run format:check`), and full ESLint compliance (`npm run lint`). |
+| **Security & Validation**       | Zero exposed client keys; server-side API proxying; strict runtime input validation using Zod schemas on all API endpoints; Gemini LLM output schema validation; sliding-window rate limiting (60 req/min per IP); sanitized error handling preventing internal stack or credential leaks; clean dependency tree with 0 npm vulnerabilities.               |
+| **Continuous Integration (CI)** | Production-grade GitHub Actions CI workflow (`.github/workflows/ci.yml`) automatically enforcing format checks, linting, TypeScript strict verification, unit tests, and Next.js build compilation on every commit.                                                                                                                                        |
+| **Efficiency**                  | 15-minute in-memory caching for external AQI queries; minimal re-renders; static page prerendering; lightweight icons and bundle size.                                                                                                                                                                                                                     |
+| **Testing**                     | 21 passing automated tests across 6 Vitest suites covering Indian CPCB sub-index calculations, vulnerability scoring, commute emission math, API route status codes, Zod schema validation, and mocked offline-resilient telemetry.                                                                                                                        |
+| **Accessibility (a11y)**        | Semantic HTML5 landmark structure (`header`, `main`, `section`, `footer`), high-contrast CPCB color-coded badges, keyboard navigation, comprehensive ARIA attributes (`role="region"`, `role="checkbox"`, `role="switch"`, `aria-label`, `aria-valuenow`, `aria-valuemin`, `aria-valuemax`, `aria-checked`), and screen-reader support.                    |
+| **Problem Statement Alignment** | Directly tackles winter smog, personalizing low-emission routines and indoor air hacks for families, while explaining _why_ choices matter.                                                                                                                                                                                                                |
 
 ---
 
 ## 🚀 Getting Started Locally
 
 ### Prerequisites
+
 - Node.js 18+ or 20+ installed
 - Git installed
 
 ### 1. Clone the repository
+
 ```bash
 git clone https://github.com/asmita-ai/urban-air-assistant.git
 cd urban-air-assistant
 ```
 
 ### 2. Install dependencies
+
 ```bash
 npm install
 ```
 
 ### 3. Configure Environment Variables
+
 Copy `.env.example` to `.env.local`:
+
 ```bash
 cp .env.example .env.local
 ```
+
 Add your free Google Gemini API key from [Google AI Studio](https://aistudio.google.com/):
+
 ```env
 GEMINI_API_KEY=your_gemini_api_key_here
 ```
-*(Note: If no API key is provided, the application runs seamlessly in smart fallback mode with verified scientific heuristics).*
+
+_(Note: If no API key is provided, the application runs seamlessly in smart fallback mode with verified scientific heuristics)._
 
 ### 4. Code Quality & Automated Tests
+
 ```bash
 # Check code formatting with Prettier
 npm run format:check
@@ -177,12 +197,15 @@ npm test
 ```
 
 ### 5. Start Development Server
+
 ```bash
 npm run dev
 ```
+
 Open [http://localhost:3000](http://localhost:3000) in your browser.
 
 ### 6. Production Build
+
 ```bash
 npm run build
 npm start
@@ -193,6 +216,7 @@ npm start
 ## 📦 Deployment
 
 ### Deploy to Vercel (Recommended — 1 Click)
+
 1. Push your repository to GitHub.
 2. Go to [vercel.com](https://vercel.com) and import the repository.
 3. Add the `GEMINI_API_KEY` under Environment Variables.
@@ -201,4 +225,5 @@ npm start
 ---
 
 ## 📄 License
+
 MIT License. Developed by Asmita Karmakar.

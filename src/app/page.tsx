@@ -26,12 +26,12 @@ export default function Home() {
   const { plan, audit, isLoadingPlan, isLoadingAudit, fetchPlan, syncPlanAndAudit } =
     usePlanAndAudit();
 
-  // Synchronize AI recommendations on initial AQI load
+  // Synchronize AI recommendations on AQI or profile update
   useEffect(() => {
     if (aqiData) {
       syncPlanAndAudit(aqiData, profile);
     }
-  }, [aqiData?.city, aqiData?.aqi]); // Re-sync when city or AQI changes
+  }, [aqiData, profile, syncPlanAndAudit]);
 
   const handleUpdateProfile = (newProfile: HouseholdProfile) => {
     updateProfile(newProfile);
@@ -58,6 +58,7 @@ export default function Home() {
         aqiData={aqiData}
         activeTab={activeTab}
         setActiveTab={setActiveTab}
+        isLoading={isLoadingAQI}
       />
 
       {/* Main Content Area */}

@@ -68,8 +68,7 @@ export const CityHubGallery: React.FC<CityHubGalleryProps> = ({
 
   // Geolocation handler
   const handleUseLocation = () => {
-    if (!navigator.geolocation) {
-      alert('Geolocation is not supported by your browser.');
+    if (typeof window === 'undefined' || !navigator.geolocation) {
       return;
     }
     setGeoLocating(true);
@@ -78,9 +77,8 @@ export const CityHubGallery: React.FC<CityHubGalleryProps> = ({
         setGeoLocating(false);
         onSelectCity('My Local Station (GPS)', pos.coords.latitude, pos.coords.longitude);
       },
-      (_err) => {
+      () => {
         setGeoLocating(false);
-        alert('Could not retrieve GPS coordinates. Defaulting to Delhi NCR.');
       },
       { timeout: 8000 }
     );
@@ -138,6 +136,12 @@ export const CityHubGallery: React.FC<CityHubGalleryProps> = ({
               setIsAutoTourActive(!isAutoTourActive);
               setTourCountdown(5);
             }}
+            aria-label={
+              isAutoTourActive
+                ? 'Pause auto-tour across Indian smog monitoring stations'
+                : 'Start auto-tour across Indian smog monitoring stations'
+            }
+            aria-pressed={isAutoTourActive}
             className={`px-3 py-1.5 rounded-lg border text-xs font-semibold flex items-center space-x-1.5 transition-all ${
               isAutoTourActive
                 ? 'bg-indigo-600 text-white border-indigo-500 shadow-md shadow-indigo-600/30'
@@ -146,9 +150,9 @@ export const CityHubGallery: React.FC<CityHubGalleryProps> = ({
             title="Auto-tour across Indian smog monitoring stations"
           >
             {isAutoTourActive ? (
-              <Pause className="w-3.5 h-3.5" />
+              <Pause className="w-3.5 h-3.5" aria-hidden="true" />
             ) : (
-              <Play className="w-3.5 h-3.5" />
+              <Play className="w-3.5 h-3.5" aria-hidden="true" />
             )}
             <span>
               {isAutoTourActive ? `Touring (${tourCountdown}s) → ${nextCityName}` : 'Auto-Tour'}
@@ -159,10 +163,14 @@ export const CityHubGallery: React.FC<CityHubGalleryProps> = ({
           <button
             onClick={onForceRefresh}
             disabled={isLoading}
+            aria-label="Force immediate air quality sensor synchronization"
             className="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-300 text-xs font-semibold flex items-center space-x-1.5 transition-all disabled:opacity-50"
             title="Force immediate sensor sync"
           >
-            <RefreshCw className={`w-3.5 h-3.5 text-teal-400 ${isLoading ? 'animate-spin' : ''}`} />
+            <RefreshCw
+              className={`w-3.5 h-3.5 text-teal-400 ${isLoading ? 'animate-spin' : ''}`}
+              aria-hidden="true"
+            />
             <span className="hidden sm:inline">Force Sync</span>
           </button>
 
@@ -170,9 +178,13 @@ export const CityHubGallery: React.FC<CityHubGalleryProps> = ({
           <button
             onClick={handleUseLocation}
             disabled={geoLocating}
+            aria-label="Detect my location using device GPS"
             className="px-3 py-1.5 rounded-lg bg-teal-500 hover:bg-teal-400 text-slate-950 text-xs font-bold flex items-center space-x-1.5 transition-all shadow-md shadow-teal-500/20"
           >
-            <Navigation className={`w-3.5 h-3.5 ${geoLocating ? 'animate-spin' : ''}`} />
+            <Navigation
+              className={`w-3.5 h-3.5 ${geoLocating ? 'animate-spin' : ''}`}
+              aria-hidden="true"
+            />
             <span>{geoLocating ? 'Locating...' : 'Use My GPS'}</span>
           </button>
         </div>
@@ -266,6 +278,16 @@ export const CityHubGallery: React.FC<CityHubGalleryProps> = ({
             return (
               <div
                 key={city.name}
+                role="button"
+                tabIndex={0}
+                aria-pressed={isSelected}
+                aria-label={`Select ${city.name}`}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    onSelectCity(city.name, city.lat, city.lon);
+                  }
+                }}
                 onClick={() => onSelectCity(city.name, city.lat, city.lon)}
                 className={`group relative rounded-xl overflow-hidden cursor-pointer transition-all duration-200 border text-left ${
                   isSelected
