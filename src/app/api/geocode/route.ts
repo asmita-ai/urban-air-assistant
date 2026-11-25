@@ -1,4 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { checkRateLimit } from '@/lib/rateLimit';
+import { createErrorResponse } from '@/lib/apiHelper';
 
 export const runtime = 'nodejs';
 
@@ -12,6 +14,15 @@ interface GeocodeApiItem {
 
 export async function GET(request: NextRequest) {
   try {
+    const ip = request.headers.get('x-forwarded-for')?.split(',')[0] || '127.0.0.1';
+    const rateCheck = checkRateLimit(ip);
+    if (!rateCheck.success) {
+      return NextResponse.json(
+        { error: 'Rate limit exceeded. Please wait a minute before querying geocoding.' },
+        { status: 429, headers: { 'Retry-After': '60' } }
+      );
+    }
+
     const { searchParams } = new URL(request.url);
     const query = searchParams.get('q');
 
@@ -40,8 +51,6 @@ export async function GET(request: NextRequest) {
 
     return NextResponse.json({ results });
   } catch (err: unknown) {
-    const errorMsg = err instanceof Error ? err.message : 'Unknown geocoding error';
-    console.error('Geocode search failed:', errorMsg);
-    return NextResponse.json({ results: [] });
+    return createErrorResponse(err, 500, 'Geocoding service unavailable.');
   }
 }

@@ -1,4 +1,5 @@
 import { AQICategory, PollutantValues, HouseholdProfile } from '@/types';
+import { EMISSION_FACTORS } from './constants';
 
 /**
  * Calculates Indian National Air Quality Index (CPCB standard)
@@ -65,23 +66,63 @@ export function getAQIColor(category: AQICategory): {
 } {
   switch (category) {
     case 'Good':
-      return { bg: 'bg-emerald-50 dark:bg-emerald-950/40', text: 'text-emerald-700 dark:text-emerald-300', border: 'border-emerald-300 dark:border-emerald-800', accent: 'bg-emerald-500', hex: '#10b981' };
+      return {
+        bg: 'bg-emerald-50 dark:bg-emerald-950/40',
+        text: 'text-emerald-700 dark:text-emerald-300',
+        border: 'border-emerald-300 dark:border-emerald-800',
+        accent: 'bg-emerald-500',
+        hex: '#10b981',
+      };
     case 'Satisfactory':
-      return { bg: 'bg-green-50 dark:bg-green-950/40', text: 'text-green-700 dark:text-green-300', border: 'border-green-300 dark:border-green-800', accent: 'bg-green-500', hex: '#22c55e' };
+      return {
+        bg: 'bg-green-50 dark:bg-green-950/40',
+        text: 'text-green-700 dark:text-green-300',
+        border: 'border-green-300 dark:border-green-800',
+        accent: 'bg-green-500',
+        hex: '#22c55e',
+      };
     case 'Moderate':
-      return { bg: 'bg-amber-50 dark:bg-amber-950/40', text: 'text-amber-700 dark:text-amber-300', border: 'border-amber-300 dark:border-amber-800', accent: 'bg-amber-500', hex: '#f59e0b' };
+      return {
+        bg: 'bg-amber-50 dark:bg-amber-950/40',
+        text: 'text-amber-700 dark:text-amber-300',
+        border: 'border-amber-300 dark:border-amber-800',
+        accent: 'bg-amber-500',
+        hex: '#f59e0b',
+      };
     case 'Poor':
-      return { bg: 'bg-orange-50 dark:bg-orange-950/40', text: 'text-orange-700 dark:text-orange-300', border: 'border-orange-300 dark:border-orange-800', accent: 'bg-orange-500', hex: '#f97316' };
+      return {
+        bg: 'bg-orange-50 dark:bg-orange-950/40',
+        text: 'text-orange-700 dark:text-orange-300',
+        border: 'border-orange-300 dark:border-orange-800',
+        accent: 'bg-orange-500',
+        hex: '#f97316',
+      };
     case 'Very Poor':
-      return { bg: 'bg-rose-50 dark:bg-rose-950/40', text: 'text-rose-700 dark:text-rose-300', border: 'border-rose-300 dark:border-rose-800', accent: 'bg-rose-500', hex: '#ef4444' };
+      return {
+        bg: 'bg-rose-50 dark:bg-rose-950/40',
+        text: 'text-rose-700 dark:text-rose-300',
+        border: 'border-rose-300 dark:border-rose-800',
+        accent: 'bg-rose-500',
+        hex: '#ef4444',
+      };
     case 'Severe':
     case 'Hazardous':
     default:
-      return { bg: 'bg-red-950/60 dark:bg-red-950/80', text: 'text-red-400 dark:text-red-200', border: 'border-red-600', accent: 'bg-red-700', hex: '#b91c1c' };
+      return {
+        bg: 'bg-red-950/60 dark:bg-red-950/80',
+        text: 'text-red-400 dark:text-red-200',
+        border: 'border-red-600',
+        accent: 'bg-red-700',
+        hex: '#b91c1c',
+      };
   }
 }
 
-export function computeIndianAQI(pollutants: PollutantValues): { aqi: number; primaryPollutant: string; category: AQICategory } {
+export function computeIndianAQI(pollutants: PollutantValues): {
+  aqi: number;
+  primaryPollutant: string;
+  category: AQICategory;
+} {
   const pm25Index = calculateSubIndex(pollutants.pm25, PM25_BREAKPOINTS);
   const pm10Index = calculateSubIndex(pollutants.pm10, PM10_BREAKPOINTS);
 
@@ -122,7 +163,8 @@ export function getHealthAdvisory(aqi: number): {
     };
   } else if (aqi <= 200) {
     return {
-      general: 'May cause breathing discomfort to people with lung disease, asthma, and heart conditions.',
+      general:
+        'May cause breathing discomfort to people with lung disease, asthma, and heart conditions.',
       children: 'Reduce prolonged intense outdoor athletic drills. Schedule play after 12:00 PM.',
       seniors: 'Limit brisk morning walks during cold early hours (before 8 AM).',
       respiratory: 'Take prescribed preventers. Wear a standard surgical or N95 mask outside.',
@@ -130,7 +172,8 @@ export function getHealthAdvisory(aqi: number): {
     };
   } else if (aqi <= 300) {
     return {
-      general: 'Causes breathing discomfort to most people on prolonged exposure. Smog haze visible.',
+      general:
+        'Causes breathing discomfort to most people on prolonged exposure. Smog haze visible.',
       children: 'Strictly avoid outdoor sports. Keep school recesses indoors.',
       seniors: 'Stay indoors during early mornings and late evenings. Keep doors closed.',
       respiratory: 'High risk of acute flare-ups. Use N95 mask outside; run indoor air purifier.',
@@ -138,19 +181,24 @@ export function getHealthAdvisory(aqi: number): {
     };
   } else if (aqi <= 400) {
     return {
-      general: 'Very Poor: Causes respiratory illness on prolonged exposure. Significant toxic smog.',
+      general:
+        'Very Poor: Causes respiratory illness on prolonged exposure. Significant toxic smog.',
       children: 'Zero outdoor play. Shut classroom windows. Use indoor educational games.',
       seniors: 'Complete indoor confinement recommended. Avoid cold air inhalation.',
-      respiratory: 'Severe emergency risk. Double check medication supply, keep nebulizer accessible.',
-      outdoorWorkers: 'Wear fit-tested N95/N99 masks. Restrict outdoor hours to essential tasks only.',
+      respiratory:
+        'Severe emergency risk. Double check medication supply, keep nebulizer accessible.',
+      outdoorWorkers:
+        'Wear fit-tested N95/N99 masks. Restrict outdoor hours to essential tasks only.',
     };
   } else {
     return {
-      general: 'Severe / Emergency: Severe health emergency. Healthy individuals will experience chest tightness.',
+      general:
+        'Severe / Emergency: Severe health emergency. Healthy individuals will experience chest tightness.',
       children: 'Close schools or switch to hybrid mode. Run room air purifiers continuously.',
       seniors: 'Absolute indoor stay. Seal window cracks. Avoid any physical exertion.',
       respiratory: 'Critical threat. Consult doctor if experiencing wheezing or persistent cough.',
-      outdoorWorkers: 'Halt non-essential outdoor work. Employers must provide N95 masks and clean air hubs.',
+      outdoorWorkers:
+        'Halt non-essential outdoor work. Employers must provide N95 masks and clean air hubs.',
     };
   }
 }
@@ -188,39 +236,52 @@ export function calculateHouseholdVulnerability(profile: HouseholdProfile, aqi: 
 
 /**
  * Commute emission & exposure impact calculator
+ * Quantifies CO2 and PM footprints using centralized EMISSION_FACTORS benchmarks
  */
-export function calculateCommuteImpact(distanceKm: number, _currentMode?: string) {
-  // Baseline: Average petrol car emission factor in urban India: ~0.165 kg CO2/km, 0.05g PM2.5/km
-  // Two-wheeler: ~0.045 kg CO2/km, 0.03g PM2.5/km
-  // Metro: ~0.015 kg CO2/passenger-km, negligible localized PM2.5
-  // Bus (Electric/CNG): ~0.035 kg CO2/passenger-km
-  
+export function calculateCommuteImpact(
+  distanceKm: number,
+  currentMode: HouseholdProfile['commuteMode'] = 'car'
+) {
   const roundTrip = distanceKm * 2;
-  const carCO2 = roundTrip * 0.165;
-  const carPM = roundTrip * 0.05;
+  const carCO2 = roundTrip * EMISSION_FACTORS.PETROL_CAR_CO2_PER_KM;
+  const carPM = roundTrip * EMISSION_FACTORS.PETROL_CAR_PM_PER_KM;
 
-  const metroCO2 = roundTrip * 0.015;
-  const busCO2 = roundTrip * 0.035;
+  const metroCO2 = roundTrip * EMISSION_FACTORS.METRO_CO2_PER_PASSENGER_KM;
+  const busCO2 = roundTrip * EMISSION_FACTORS.BUS_CO2_PER_PASSENGER_KM;
+
+  // Compute current baseline depending on user mode
+  const currentCO2 =
+    currentMode === 'two-wheeler'
+      ? roundTrip * EMISSION_FACTORS.TWO_WHEELER_CO2_PER_KM
+      : currentMode === 'metro'
+        ? metroCO2
+        : currentMode === 'bus'
+          ? busCO2
+          : currentMode === 'walk-cycle' || currentMode === 'wfh'
+            ? 0
+            : carCO2;
 
   return {
+    currentMode,
+    currentBaselineCO2Kg: Number(currentCO2.toFixed(2)),
     dailyCarEmissions: { co2Kg: Number(carCO2.toFixed(2)), pmGrams: Number(carPM.toFixed(2)) },
     metroSavings: {
-      co2KgSaved: Number((carCO2 - metroCO2).toFixed(2)),
+      co2KgSaved: Number(Math.max(0, carCO2 - metroCO2).toFixed(2)),
       pmGramsSaved: Number((carPM * 0.95).toFixed(2)),
-      exposureReductionPct: 75, // Metro stations/trains have HEPA HVAC
+      exposureReductionPct: EMISSION_FACTORS.METRO_EXPOSURE_REDUCTION_PCT,
     },
     busSavings: {
-      co2KgSaved: Number((carCO2 - busCO2).toFixed(2)),
+      co2KgSaved: Number(Math.max(0, carCO2 - busCO2).toFixed(2)),
       pmGramsSaved: Number((carPM * 0.85).toFixed(2)),
     },
     carpoolSavings: {
-      co2KgSaved: Number((carCO2 * 0.6).toFixed(2)),
-      pmGramsSaved: Number((carPM * 0.6).toFixed(2)),
+      co2KgSaved: Number((carCO2 * EMISSION_FACTORS.CARPOOL_SAVINGS_RATIO).toFixed(2)),
+      pmGramsSaved: Number((carPM * EMISSION_FACTORS.CARPOOL_SAVINGS_RATIO).toFixed(2)),
       exposureReductionPct: 20,
     },
     tripChainingSavings: {
-      co2KgSaved: Number((carCO2 * 0.35).toFixed(2)),
-      pmGramsSaved: Number((carPM * 0.35).toFixed(2)),
-    }
+      co2KgSaved: Number((carCO2 * EMISSION_FACTORS.TRIP_CHAINING_SAVINGS_RATIO).toFixed(2)),
+      pmGramsSaved: Number((carPM * EMISSION_FACTORS.TRIP_CHAINING_SAVINGS_RATIO).toFixed(2)),
+    },
   };
 }

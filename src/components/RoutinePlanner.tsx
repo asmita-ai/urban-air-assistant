@@ -10,7 +10,7 @@ import {
   ShieldCheck,
   Zap,
   TrendingDown,
-  RefreshCw
+  RefreshCw,
 } from 'lucide-react';
 
 interface RoutinePlannerProps {
@@ -34,9 +34,12 @@ export const RoutinePlanner: React.FC<RoutinePlannerProps> = ({
         <div className="w-12 h-12 rounded-full bg-teal-500/20 border border-teal-500/40 text-teal-400 mx-auto flex items-center justify-center animate-spin">
           <RefreshCw className="w-6 h-6" />
         </div>
-        <h3 className="text-lg font-bold text-white">Synthesizing Contextual Routine Plan with Gemini...</h3>
+        <h3 className="text-lg font-bold text-white">
+          Synthesizing Contextual Routine Plan with Gemini...
+        </h3>
         <p className="text-xs text-slate-400 max-w-md mx-auto">
-          Harmonizing real-time AQI in {aqiData.city} ({aqiData.aqi} AQI) with {profile.familyMembers.length} family member risk profiles and commute parameters.
+          Harmonizing real-time AQI in {aqiData.city} ({aqiData.aqi} AQI) with{' '}
+          {profile.familyMembers.length} family member risk profiles and commute parameters.
         </p>
       </div>
     );
@@ -86,7 +89,9 @@ export const RoutinePlanner: React.FC<RoutinePlannerProps> = ({
                 <span className="text-xl font-black text-teal-300">
                   {plan.totalPotentialCO2SavingsKg} kg
                 </span>
-                <span className="text-[11px] block text-slate-400 font-medium">CO₂ Emissions Avoidable</span>
+                <span className="text-[11px] block text-slate-400 font-medium">
+                  CO₂ Emissions Avoidable
+                </span>
               </div>
             </div>
 
@@ -98,7 +103,9 @@ export const RoutinePlanner: React.FC<RoutinePlannerProps> = ({
                 <span className="text-xl font-black text-indigo-300">
                   {plan.totalPotentialPMSavingsGrams} g
                 </span>
-                <span className="text-[11px] block text-slate-400 font-medium">Toxic PM Prevented</span>
+                <span className="text-[11px] block text-slate-400 font-medium">
+                  Toxic PM Prevented
+                </span>
               </div>
             </div>
           </div>
@@ -108,7 +115,9 @@ export const RoutinePlanner: React.FC<RoutinePlannerProps> = ({
         <div className="mt-5 p-3.5 rounded-xl bg-teal-950/40 border border-teal-800/50 flex items-start space-x-3">
           <Zap className="w-5 h-5 text-teal-400 flex-shrink-0 mt-0.5" />
           <div className="text-xs">
-            <span className="font-bold text-teal-300 block mb-0.5">Smart Trip Chaining Recommendation:</span>
+            <span className="font-bold text-teal-300 block mb-0.5">
+              Smart Trip Chaining Recommendation:
+            </span>
             <span className="text-slate-300 leading-relaxed">{plan.tripCombiningAdvice}</span>
           </div>
         </div>
@@ -146,7 +155,9 @@ export const RoutinePlanner: React.FC<RoutinePlannerProps> = ({
                     Target: {item.targetMember}
                   </span>
                 </div>
-                <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full border uppercase tracking-wider ${getRiskBadge(item.exposureRisk)}`}>
+                <span
+                  className={`text-[10px] font-bold px-2 py-0.5 rounded-full border uppercase tracking-wider ${getRiskBadge(item.exposureRisk)}`}
+                >
                   {item.exposureRisk} Exposure Risk
                 </span>
               </div>

@@ -1,29 +1,50 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { generateRoutinePlan } from '@/lib/gemini';
-import { AQIData, HouseholdProfile } from '@/types';
+import { RoutineRequestSchema } from '@/lib/schemas';
+import { checkRateLimit } from '@/lib/rateLimit';
+import { createErrorResponse } from '@/lib/apiHelper';
 
 export const runtime = 'nodejs';
 
 export async function POST(request: NextRequest) {
   try {
-    const body = await request.json();
-    const { aqiData, profile } = body as { aqiData: AQIData; profile: HouseholdProfile };
-
-    if (!aqiData || !profile) {
+    const ip = request.headers.get('x-forwarded-for')?.split(',')[0] || '127.0.0.1';
+    const rateCheck = checkRateLimit(ip);
+    if (!rateCheck.success) {
       return NextResponse.json(
-        { error: 'Missing aqiData or profile in request body' },
+        {
+          error:
+            'Rate limit exceeded. Please wait a minute before requesting another routine plan.',
+        },
+        { status: 429, headers: { 'Retry-After': '60' } }
+      );
+    }
+
+    const rawBody = await request.json();
+    const parseResult = RoutineRequestSchema.safeParse(rawBody);
+
+    if (!parseResult.success) {
+      return NextResponse.json(
+        {
+          error: 'Invalid request payload for routine plan generation.',
+          issues: parseResult.error.issues.map((e) => ({
+            field: e.path.join('.'),
+            message: e.message,
+          })),
+        },
         { status: 400 }
       );
     }
 
+    const { aqiData, profile } = parseResult.data;
     const plan = await generateRoutinePlan(aqiData, profile);
+
     return NextResponse.json(plan, { status: 200 });
   } catch (error: unknown) {
-    const errorMsg = error instanceof Error ? error.message : 'Unknown error';
-    console.error('API /api/ai/routine error:', errorMsg);
-    return NextResponse.json(
-      { error: 'Failed to generate routine plan', message: errorMsg },
-      { status: 500 }
+    return createErrorResponse(
+      error,
+      500,
+      'Failed to generate tailored routine plan. Please try again.'
     );
   }
 }

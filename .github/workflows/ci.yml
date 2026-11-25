@@ -1,0 +1,42 @@
+name: Continuous Integration & Quality Assurance
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  test-and-verify:
+    name: Lint, Test, Format & Build Verification
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js runtime
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm install --legacy-peer-deps
+
+      - name: Verify Code Style (Prettier)
+        run: npm run format:check
+
+      - name: Static Code Analysis (ESLint)
+        run: npm run lint
+
+      - name: Type System Verification (TypeScript)
+        run: npx tsc --noEmit
+
+      - name: Execute Automated Test Suite (Vitest)
+        run: npm test
+
+      - name: Build Next.js Production Bundle
+        run: npm run build
+        env:
+          NEXT_TELEMETRY_DISABLED: 1

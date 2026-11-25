@@ -2,16 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { INDIAN_CITIES } from '@/lib/cities';
-import {
-  RefreshCw,
-  Play,
-  Pause,
-  Grid,
-  List,
-  Clock,
-  Radio,
-  Navigation
-} from 'lucide-react';
+import { RefreshCw, Play, Pause, Grid, List, Clock, Radio, Navigation } from 'lucide-react';
 
 interface CityHubGalleryProps {
   currentCity: string;
@@ -97,11 +88,20 @@ export const CityHubGallery: React.FC<CityHubGalleryProps> = ({
 
   const filteredCities = INDIAN_CITIES.filter((c) => {
     if (filterRegion === 'smog') return c.typicalWinterAQI >= 250;
-    if (filterRegion === 'metro') return ['Delhi NCR (Central)', 'Mumbai (BKC)', 'Bengaluru (Koramangala)', 'Kolkata (Ballygunge)', 'Chennai (Central)', 'Hyderabad (Hitec City)'].includes(c.name);
+    if (filterRegion === 'metro')
+      return [
+        'Delhi NCR (Central)',
+        'Mumbai (BKC)',
+        'Bengaluru (Koramangala)',
+        'Kolkata (Ballygunge)',
+        'Chennai (Central)',
+        'Hyderabad (Hitec City)',
+      ].includes(c.name);
     return true;
   });
 
-  const nextCityIndex = (INDIAN_CITIES.findIndex((c) => c.name === currentCity) + 1) % INDIAN_CITIES.length;
+  const nextCityIndex =
+    (INDIAN_CITIES.findIndex((c) => c.name === currentCity) + 1) % INDIAN_CITIES.length;
   const nextCityName = INDIAN_CITIES[nextCityIndex]?.name.split(' ')[0] || 'Next';
 
   return (
@@ -125,7 +125,8 @@ export const CityHubGallery: React.FC<CityHubGalleryProps> = ({
           <span className="hidden sm:inline text-slate-600">•</span>
 
           <span className="text-slate-400 text-[11px]">
-            Telemetry: <span className="text-white font-mono">1000ms tick</span> • Station: <span className="text-teal-300 font-semibold">{currentCity.split(' ')[0]}</span>
+            Telemetry: <span className="text-white font-mono">1000ms tick</span> • Station:{' '}
+            <span className="text-teal-300 font-semibold">{currentCity.split(' ')[0]}</span>
           </span>
         </div>
 
@@ -144,8 +145,14 @@ export const CityHubGallery: React.FC<CityHubGalleryProps> = ({
             }`}
             title="Auto-tour across Indian smog monitoring stations"
           >
-            {isAutoTourActive ? <Pause className="w-3.5 h-3.5" /> : <Play className="w-3.5 h-3.5" />}
-            <span>{isAutoTourActive ? `Touring (${tourCountdown}s) → ${nextCityName}` : 'Auto-Tour'}</span>
+            {isAutoTourActive ? (
+              <Pause className="w-3.5 h-3.5" />
+            ) : (
+              <Play className="w-3.5 h-3.5" />
+            )}
+            <span>
+              {isAutoTourActive ? `Touring (${tourCountdown}s) → ${nextCityName}` : 'Auto-Tour'}
+            </span>
           </button>
 
           {/* Force Sync Button */}
@@ -182,7 +189,8 @@ export const CityHubGallery: React.FC<CityHubGalleryProps> = ({
             </span>
           </h3>
           <p className="text-xs text-slate-400">
-            Click any urban hub to instantly switch live telemetric feed, winter inversion factors, and tailored family protocols.
+            Click any urban hub to instantly switch live telemetric feed, winter inversion factors,
+            and tailored family protocols.
           </p>
         </div>
 
@@ -193,7 +201,9 @@ export const CityHubGallery: React.FC<CityHubGalleryProps> = ({
             <button
               onClick={() => setFilterRegion('all')}
               className={`px-2.5 py-1 rounded-md text-[11px] font-semibold transition-colors ${
-                filterRegion === 'all' ? 'bg-teal-500 text-slate-950 font-bold' : 'text-slate-400 hover:text-white'
+                filterRegion === 'all'
+                  ? 'bg-teal-500 text-slate-950 font-bold'
+                  : 'text-slate-400 hover:text-white'
               }`}
             >
               All Hubs
@@ -201,7 +211,9 @@ export const CityHubGallery: React.FC<CityHubGalleryProps> = ({
             <button
               onClick={() => setFilterRegion('smog')}
               className={`px-2.5 py-1 rounded-md text-[11px] font-semibold transition-colors ${
-                filterRegion === 'smog' ? 'bg-teal-500 text-slate-950 font-bold' : 'text-slate-400 hover:text-white'
+                filterRegion === 'smog'
+                  ? 'bg-teal-500 text-slate-950 font-bold'
+                  : 'text-slate-400 hover:text-white'
               }`}
             >
               High Smog (250+)
@@ -209,7 +221,9 @@ export const CityHubGallery: React.FC<CityHubGalleryProps> = ({
             <button
               onClick={() => setFilterRegion('metro')}
               className={`px-2.5 py-1 rounded-md text-[11px] font-semibold transition-colors ${
-                filterRegion === 'metro' ? 'bg-teal-500 text-slate-950 font-bold' : 'text-slate-400 hover:text-white'
+                filterRegion === 'metro'
+                  ? 'bg-teal-500 text-slate-950 font-bold'
+                  : 'text-slate-400 hover:text-white'
               }`}
             >
               Megacities
@@ -221,7 +235,9 @@ export const CityHubGallery: React.FC<CityHubGalleryProps> = ({
             <button
               onClick={() => setViewMode('photos')}
               className={`p-1.5 rounded-md transition-colors ${
-                viewMode === 'photos' ? 'bg-teal-500 text-slate-950' : 'text-slate-400 hover:text-white'
+                viewMode === 'photos'
+                  ? 'bg-teal-500 text-slate-950'
+                  : 'text-slate-400 hover:text-white'
               }`}
               title="Motion Photo Cards"
             >
@@ -230,7 +246,9 @@ export const CityHubGallery: React.FC<CityHubGalleryProps> = ({
             <button
               onClick={() => setViewMode('chips')}
               className={`p-1.5 rounded-md transition-colors ${
-                viewMode === 'chips' ? 'bg-teal-500 text-slate-950' : 'text-slate-400 hover:text-white'
+                viewMode === 'chips'
+                  ? 'bg-teal-500 text-slate-950'
+                  : 'text-slate-400 hover:text-white'
               }`}
               title="Compact Chips View"
             >
@@ -292,9 +310,7 @@ export const CityHubGallery: React.FC<CityHubGalleryProps> = ({
                   <div className="text-[10px] text-teal-400 truncate mt-0.5 font-medium">
                     {city.landmark}
                   </div>
-                  <div className="text-[9px] text-slate-500 truncate mt-0.5">
-                    {city.state}
-                  </div>
+                  <div className="text-[9px] text-slate-500 truncate mt-0.5">{city.state}</div>
                 </div>
               </div>
             );
@@ -316,7 +332,9 @@ export const CityHubGallery: React.FC<CityHubGalleryProps> = ({
                 }`}
               >
                 <span>{city.name.split(' ')[0]}</span>
-                <span className={`text-[10px] font-mono ${isSelected ? 'text-slate-900' : 'text-teal-400'}`}>
+                <span
+                  className={`text-[10px] font-mono ${isSelected ? 'text-slate-900' : 'text-teal-400'}`}
+                >
                   {city.landmark}
                 </span>
               </button>

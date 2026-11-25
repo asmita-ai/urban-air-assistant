@@ -1,15 +1,16 @@
 import { AQIData, HourlyAQI } from '@/types';
 import { computeIndianAQI, getAQICategory, getHealthAdvisory } from './aqiCalculator';
 import { INDIAN_CITIES } from './cities';
+import { CACHE_TTL_MS } from './constants';
+import { logger } from './apiHelper';
 
 interface CacheEntry {
   data: AQIData;
   expiresAt: number;
 }
 
-// 15-minute memory cache for fast response and optimal resource use
+// Memory cache for fast response and optimal resource use
 const cache = new Map<string, CacheEntry>();
-const CACHE_TTL_MS = 15 * 60 * 1000;
 
 export async function fetchAirQualityData(
   cityName: string,
@@ -23,7 +24,9 @@ export async function fetchAirQualityData(
 
   if (latitude === undefined || longitude === undefined) {
     const matched = INDIAN_CITIES.find(
-      (c) => c.name.toLowerCase().includes(cityName.toLowerCase()) || cityName.toLowerCase().includes(c.name.toLowerCase())
+      (c) =>
+        c.name.toLowerCase().includes(cityName.toLowerCase()) ||
+        cityName.toLowerCase().includes(c.name.toLowerCase())
     );
     if (matched) {
       latitude = matched.lat;
@@ -114,7 +117,13 @@ export async function fetchAirQualityData(
       humidity: weatherJson?.current?.relative_humidity_2m ?? 55,
       windSpeed: weatherJson?.current?.wind_speed_10m ?? 6,
       source: 'Open-Meteo & CPCB Ground Calibration',
-      timestamp: current.time ? new Date(current.time).toLocaleString('en-IN', { timeZone: 'Asia/Kolkata', dateStyle: 'medium', timeStyle: 'short' }) : new Date().toLocaleString('en-IN'),
+      timestamp: current.time
+        ? new Date(current.time).toLocaleString('en-IN', {
+            timeZone: 'Asia/Kolkata',
+            dateStyle: 'medium',
+            timeStyle: 'short',
+          })
+        : new Date().toLocaleString('en-IN'),
       healthAdvisory: advisories.general,
       vulnerabilityAlerts: {
         children: advisories.children,
@@ -131,7 +140,7 @@ export async function fetchAirQualityData(
 
     return formattedData;
   } catch (error) {
-    console.error('Failed to fetch live AQI data, falling back to verified calibration:', error);
+    logger.warn('Failed to fetch live AQI data, falling back to verified calibration:', error);
     return getFallbackData(resolvedCity, latitude, longitude);
   }
 }
@@ -151,7 +160,8 @@ function getFallbackData(cityName: string, latitude: number, longitude: number):
   const hourly: HourlyAQI[] = Array.from({ length: 24 }).map((_, idx) => {
     const hr = (hoursNow + idx) % 24;
     // Morning & late night peaks, afternoon trough
-    const factor = (hr >= 6 && hr <= 9) || (hr >= 19 && hr <= 22) ? 1.3 : (hr >= 13 && hr <= 16) ? 0.75 : 1.0;
+    const factor =
+      (hr >= 6 && hr <= 9) || (hr >= 19 && hr <= 22) ? 1.3 : hr >= 13 && hr <= 16 ? 0.75 : 1.0;
     const hrPm25 = Number((pm25 * factor).toFixed(1));
     const cat = getAQICategory(Math.round(computed.aqi * factor));
 
@@ -179,7 +189,11 @@ function getFallbackData(cityName: string, latitude: number, longitude: number):
     humidity: 58,
     windSpeed: 5.2,
     source: 'CPCB Baseline Sensor Calibration (Offline Resilient Mode)',
-    timestamp: new Date().toLocaleString('en-IN', { timeZone: 'Asia/Kolkata', dateStyle: 'medium', timeStyle: 'short' }),
+    timestamp: new Date().toLocaleString('en-IN', {
+      timeZone: 'Asia/Kolkata',
+      dateStyle: 'medium',
+      timeStyle: 'short',
+    }),
     healthAdvisory: advisories.general,
     vulnerabilityAlerts: {
       children: advisories.children,

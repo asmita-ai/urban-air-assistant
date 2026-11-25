@@ -1,7 +1,16 @@
 'use client';
 
 import React, { useState } from 'react';
-import { Wind, Home, Calendar, Activity, MessageSquare, ChevronDown, MapPin, Search } from 'lucide-react';
+import {
+  Wind,
+  Home,
+  Calendar,
+  Activity,
+  MessageSquare,
+  ChevronDown,
+  MapPin,
+  Search,
+} from 'lucide-react';
 import { AQIData } from '@/types';
 import { INDIAN_CITIES } from '@/lib/cities';
 import { getAQIColor } from '@/lib/aqiCalculator';
@@ -25,7 +34,9 @@ export const Navbar: React.FC<NavbarProps> = ({
 }) => {
   const [isCityDropdownOpen, setIsCityDropdownOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
-  const [searchResults, setSearchResults] = useState<Array<{ name: string; state: string; lat: number; lon: number }>>([]);
+  const [searchResults, setSearchResults] = useState<
+    Array<{ name: string; state: string; lat: number; lon: number }>
+  >([]);
   const [isSearching, setIsSearching] = useState(false);
 
   const aqiColors = aqiData ? getAQIColor(aqiData.category) : null;
@@ -61,7 +72,10 @@ export const Navbar: React.FC<NavbarProps> = ({
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           {/* Brand Logo & Name */}
-          <div className="flex items-center space-x-3 cursor-pointer" onClick={() => setActiveTab('dashboard')}>
+          <div
+            className="flex items-center space-x-3 cursor-pointer"
+            onClick={() => setActiveTab('dashboard')}
+          >
             <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-teal-500 to-emerald-400 flex items-center justify-center text-slate-950 shadow-md shadow-teal-500/20">
               <Wind className="w-6 h-6 stroke-[2.2]" />
             </div>
@@ -109,7 +123,9 @@ export const Navbar: React.FC<NavbarProps> = ({
                 </div>
 
                 {isSearching && (
-                  <div className="text-center py-2 text-xs text-slate-400">Searching coordinates...</div>
+                  <div className="text-center py-2 text-xs text-slate-400">
+                    Searching coordinates...
+                  </div>
                 )}
 
                 {searchResults.length > 0 ? (
@@ -121,14 +137,20 @@ export const Navbar: React.FC<NavbarProps> = ({
                       <button
                         key={i}
                         onClick={() => {
-                          onSelectCity(`${res.name}${res.state ? `, ${res.state}` : ''}`, res.lat, res.lon);
+                          onSelectCity(
+                            `${res.name}${res.state ? `, ${res.state}` : ''}`,
+                            res.lat,
+                            res.lon
+                          );
                           setIsCityDropdownOpen(false);
                           setSearchQuery('');
                           setSearchResults([]);
                         }}
                         className="w-full text-left px-2.5 py-1.5 rounded-lg text-xs hover:bg-slate-700 text-slate-200 transition-colors flex items-center justify-between"
                       >
-                        <span className="truncate">{res.name}, {res.state}</span>
+                        <span className="truncate">
+                          {res.name}, {res.state}
+                        </span>
                         <span className="text-[10px] text-teal-400 ml-2">Live</span>
                       </button>
                     ))}
@@ -180,7 +202,10 @@ export const Navbar: React.FC<NavbarProps> = ({
         </div>
 
         {/* Tab Navigation Navigation Bar */}
-        <nav className="flex space-x-1 sm:space-x-2 overflow-x-auto py-2 no-scrollbar" aria-label="Main Navigation">
+        <nav
+          className="flex space-x-1 sm:space-x-2 overflow-x-auto py-2 no-scrollbar"
+          aria-label="Main Navigation"
+        >
           {tabs.map((tab) => {
             const Icon = tab.icon;
             const isActive = activeTab === tab.id;
@@ -198,9 +223,11 @@ export const Navbar: React.FC<NavbarProps> = ({
                 <Icon className={`w-4 h-4 ${isActive ? 'stroke-[2.5]' : ''}`} />
                 <span>{tab.label}</span>
                 {tab.badge && (
-                  <span className={`text-[10px] uppercase font-bold px-1.5 py-0.2 rounded ${
-                    isActive ? 'bg-slate-950 text-teal-400' : 'bg-teal-500/20 text-teal-300'
-                  }`}>
+                  <span
+                    className={`text-[10px] uppercase font-bold px-1.5 py-0.2 rounded ${
+                      isActive ? 'bg-slate-950 text-teal-400' : 'bg-teal-500/20 text-teal-300'
+                    }`}
+                  >
                     {tab.badge}
                   </span>
                 )}

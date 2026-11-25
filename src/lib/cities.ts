@@ -18,23 +18,30 @@ export const INDIAN_CITIES: CityPreset[] = [
     landmark: 'India Gate',
     state: 'Delhi',
     lat: 28.6139,
-    lon: 77.2090,
+    lon: 77.209,
     typicalWinterAQI: 380,
     smogProneSeason: 'Oct - Feb',
-    majorSources: ['Vehicular exhaust', 'Thermal inversion', 'Biomass burning', 'Construction dust'],
-    imageUrl: 'https://images.unsplash.com/photo-1587474260584-136574528ed5?w=600&auto=format&fit=crop&q=80',
+    majorSources: [
+      'Vehicular exhaust',
+      'Thermal inversion',
+      'Biomass burning',
+      'Construction dust',
+    ],
+    imageUrl:
+      'https://images.unsplash.com/photo-1587474260584-136574528ed5?w=600&auto=format&fit=crop&q=80',
   },
   {
     name: 'Mumbai (BKC)',
     hindiName: 'मुंबई',
     landmark: 'Gateway of India',
     state: 'Maharashtra',
-    lat: 19.0760,
+    lat: 19.076,
     lon: 72.8777,
     typicalWinterAQI: 180,
     smogProneSeason: 'Nov - Feb',
     majorSources: ['Coastal humidity trapping dust', 'Heavy construction', 'Marine bunker fuel'],
-    imageUrl: 'https://images.unsplash.com/photo-1570168007204-dfb528c6958f?w=600&auto=format&fit=crop&q=80',
+    imageUrl:
+      'https://images.unsplash.com/photo-1570168007204-dfb528c6958f?w=600&auto=format&fit=crop&q=80',
   },
   {
     name: 'Kolkata (Ballygunge)',
@@ -46,7 +53,8 @@ export const INDIAN_CITIES: CityPreset[] = [
     typicalWinterAQI: 240,
     smogProneSeason: 'Nov - Jan',
     majorSources: ['Old diesel fleet', 'Port transport', 'Solid fuel burning'],
-    imageUrl: 'https://images.unsplash.com/photo-1558431382-27e303142255?w=600&auto=format&fit=crop&q=80',
+    imageUrl:
+      'https://images.unsplash.com/photo-1558431382-27e303142255?w=600&auto=format&fit=crop&q=80',
   },
   {
     name: 'Bengaluru (Koramangala)',
@@ -58,7 +66,8 @@ export const INDIAN_CITIES: CityPreset[] = [
     typicalWinterAQI: 85,
     smogProneSeason: 'Year-round moderate',
     majorSources: ['Peak hour traffic congestion', 'Construction plumes'],
-    imageUrl: 'https://images.unsplash.com/photo-1596176530529-78163a4f7af2?w=600&auto=format&fit=crop&q=80',
+    imageUrl:
+      'https://images.unsplash.com/photo-1596176530529-78163a4f7af2?w=600&auto=format&fit=crop&q=80',
   },
   {
     name: 'Chennai (Central)',
@@ -70,19 +79,21 @@ export const INDIAN_CITIES: CityPreset[] = [
     typicalWinterAQI: 95,
     smogProneSeason: 'Nov - Jan',
     majorSources: ['Thermal plant emissions', 'Coastal corridor traffic'],
-    imageUrl: 'https://images.unsplash.com/photo-1582510003544-4d00b7f74220?w=600&auto=format&fit=crop&q=80',
+    imageUrl:
+      'https://images.unsplash.com/photo-1582510003544-4d00b7f74220?w=600&auto=format&fit=crop&q=80',
   },
   {
     name: 'Hyderabad (Hitec City)',
     hindiName: 'हैदराबाद',
     landmark: 'Charminar',
     state: 'Telangana',
-    lat: 17.3850,
+    lat: 17.385,
     lon: 78.4867,
     typicalWinterAQI: 120,
     smogProneSeason: 'Nov - Jan',
     majorSources: ['Traffic corridors', 'Industrial cluster outskirts'],
-    imageUrl: 'https://images.unsplash.com/photo-1605007493699-ce65834f8a00?w=600&auto=format&fit=crop&q=80',
+    imageUrl:
+      'https://images.unsplash.com/photo-1605007493699-ce65834f8a00?w=600&auto=format&fit=crop&q=80',
   },
   {
     name: 'Lucknow (Gomti Nagar)',
@@ -94,7 +105,8 @@ export const INDIAN_CITIES: CityPreset[] = [
     typicalWinterAQI: 330,
     smogProneSeason: 'Oct - Feb',
     majorSources: ['Valley topography inversion', 'Biomass heating', 'Congested corridors'],
-    imageUrl: 'https://images.unsplash.com/photo-1629853965565-d0ff0e20f4c0?w=600&auto=format&fit=crop&q=80',
+    imageUrl:
+      'https://images.unsplash.com/photo-1629853965565-d0ff0e20f4c0?w=600&auto=format&fit=crop&q=80',
   },
   {
     name: 'Patna (Planetarium)',
@@ -106,7 +118,8 @@ export const INDIAN_CITIES: CityPreset[] = [
     typicalWinterAQI: 370,
     smogProneSeason: 'Nov - Feb',
     majorSources: ['Gangetic plain stagnant air', 'Brick kilns', 'Unpaved road dust'],
-    imageUrl: 'https://images.unsplash.com/photo-1628172906155-709405d2139e?w=600&auto=format&fit=crop&q=80',
+    imageUrl:
+      'https://images.unsplash.com/photo-1628172906155-709405d2139e?w=600&auto=format&fit=crop&q=80',
   },
   {
     name: 'Ahmedabad (Riverfront)',
@@ -118,7 +131,8 @@ export const INDIAN_CITIES: CityPreset[] = [
     typicalWinterAQI: 210,
     smogProneSeason: 'Nov - Feb',
     majorSources: ['Vatva chemical belt', 'Heavy vehicular movement'],
-    imageUrl: 'https://images.unsplash.com/photo-1609137144813-7d9921338f24?w=600&auto=format&fit=crop&q=80',
+    imageUrl:
+      'https://images.unsplash.com/photo-1609137144813-7d9921338f24?w=600&auto=format&fit=crop&q=80',
   },
   {
     name: 'Jaipur (Pink City)',
@@ -130,7 +144,8 @@ export const INDIAN_CITIES: CityPreset[] = [
     typicalWinterAQI: 220,
     smogProneSeason: 'Oct - Feb',
     majorSources: ['Thar desert sand drift', 'Tourist transit', 'Diesel generators'],
-    imageUrl: 'https://images.unsplash.com/photo-1599661046289-e31897846e41?w=600&auto=format&fit=crop&q=80',
+    imageUrl:
+      'https://images.unsplash.com/photo-1599661046289-e31897846e41?w=600&auto=format&fit=crop&q=80',
   },
   {
     name: 'Kanpur (Civil Lines)',
@@ -142,7 +157,8 @@ export const INDIAN_CITIES: CityPreset[] = [
     typicalWinterAQI: 360,
     smogProneSeason: 'Oct - Feb',
     majorSources: ['Leather industrial belt', 'Thermal power plants', 'Winter calm winds'],
-    imageUrl: 'https://images.unsplash.com/photo-1548013146-72479768bada?w=600&auto=format&fit=crop&q=80',
+    imageUrl:
+      'https://images.unsplash.com/photo-1548013146-72479768bada?w=600&auto=format&fit=crop&q=80',
   },
   {
     name: 'Pune (Shivaji Nagar)',
@@ -154,7 +170,8 @@ export const INDIAN_CITIES: CityPreset[] = [
     typicalWinterAQI: 160,
     smogProneSeason: 'Nov - Feb',
     majorSources: ['Valley inversion trapping auto emissions', 'Construction'],
-    imageUrl: 'https://images.unsplash.com/photo-1616423640778-28d1b53229bd?w=600&auto=format&fit=crop&q=80',
+    imageUrl:
+      'https://images.unsplash.com/photo-1616423640778-28d1b53229bd?w=600&auto=format&fit=crop&q=80',
   },
   {
     name: 'Surat (Athwa)',
@@ -166,7 +183,8 @@ export const INDIAN_CITIES: CityPreset[] = [
     typicalWinterAQI: 175,
     smogProneSeason: 'Nov - Feb',
     majorSources: ['Textile and chemical processing clusters', 'High corridor volume'],
-    imageUrl: 'https://images.unsplash.com/photo-1618773928121-c32242e63f39?w=600&auto=format&fit=crop&q=80',
+    imageUrl:
+      'https://images.unsplash.com/photo-1618773928121-c32242e63f39?w=600&auto=format&fit=crop&q=80',
   },
   {
     name: 'Varanasi (Ghats)',
@@ -178,6 +196,7 @@ export const INDIAN_CITIES: CityPreset[] = [
     typicalWinterAQI: 310,
     smogProneSeason: 'Oct - Feb',
     majorSources: ['Riverfront thermal inversion', 'Congested old city arteries'],
-    imageUrl: 'https://images.unsplash.com/photo-1561361513-2d000a50f0dc?w=600&auto=format&fit=crop&q=80',
+    imageUrl:
+      'https://images.unsplash.com/photo-1561361513-2d000a50f0dc?w=600&auto=format&fit=crop&q=80',
   },
 ];

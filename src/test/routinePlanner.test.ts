@@ -22,7 +22,14 @@ describe('GenAI Routine Planner and IAQ Engine', () => {
     hourly: [
       { time: '08:00', hour: 8, aqi: 410, pm25: 260, category: 'Severe', isVentilationSafe: false },
       { time: '14:00', hour: 14, aqi: 240, pm25: 140, category: 'Poor', isVentilationSafe: true },
-      { time: '20:00', hour: 20, aqi: 390, pm25: 250, category: 'Very Poor', isVentilationSafe: false },
+      {
+        time: '20:00',
+        hour: 20,
+        aqi: 390,
+        pm25: 250,
+        category: 'Very Poor',
+        isVentilationSafe: false,
+      },
     ],
     temperature: 19.5,
     humidity: 62,
@@ -43,7 +50,13 @@ describe('GenAI Routine Planner and IAQ Engine', () => {
     familyMembers: [
       { id: '1', name: 'Kabir', type: 'child', hasRespiratoryIssue: false, activityLevel: 'high' },
       { id: '2', name: 'Dadi', type: 'senior', hasRespiratoryIssue: true, activityLevel: 'low' },
-      { id: '3', name: 'Arjun', type: 'adult', hasRespiratoryIssue: false, activityLevel: 'moderate' },
+      {
+        id: '3',
+        name: 'Arjun',
+        type: 'adult',
+        hasRespiratoryIssue: false,
+        activityLevel: 'moderate',
+      },
     ],
     commuteMode: 'car',
     commuteDistanceKm: 18,

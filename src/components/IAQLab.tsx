@@ -2,14 +2,7 @@
 
 import React, { useState } from 'react';
 import { IAQAuditResult, AQIData, HouseholdProfile } from '@/types';
-import {
-  Home,
-  Fan,
-  Leaf,
-  Layers,
-  Wrench,
-  Sun
-} from 'lucide-react';
+import { Home, Fan, Leaf, Layers, Wrench, Sun } from 'lucide-react';
 
 interface IAQLabProps {
   audit: IAQAuditResult | null;
@@ -18,16 +11,11 @@ interface IAQLabProps {
   isLoading: boolean;
 }
 
-export const IAQLab: React.FC<IAQLabProps> = ({
-  audit,
-  aqiData,
-  profile: _profile,
-  isLoading,
-}) => {
+export const IAQLab: React.FC<IAQLabProps> = ({ audit, aqiData, profile: _profile, isLoading }) => {
   // Interactive Room Dimension CADR Calculator state
   const [roomLength, setRoomLength] = useState(15); // ft
-  const [roomWidth, setRoomWidth] = useState(12);   // ft
-  const [roomHeight, setRoomHeight] = useState(10);  // ft
+  const [roomWidth, setRoomWidth] = useState(12); // ft
+  const [roomHeight, setRoomHeight] = useState(10); // ft
 
   if (isLoading || !audit) {
     return (
@@ -45,7 +33,11 @@ export const IAQLab: React.FC<IAQLabProps> = ({
   const getWindowBadge = (status: string) => {
     switch (status) {
       case 'Open Safe':
-        return { text: 'text-emerald-400', bg: 'bg-emerald-500/20', border: 'border-emerald-500/30' };
+        return {
+          text: 'text-emerald-400',
+          bg: 'bg-emerald-500/20',
+          border: 'border-emerald-500/30',
+        };
       case 'Crack Windows Only':
         return { text: 'text-amber-400', bg: 'bg-amber-500/20', border: 'border-amber-500/30' };
       default:
@@ -65,9 +57,12 @@ export const IAQLab: React.FC<IAQLabProps> = ({
               <Home className="w-4 h-4" />
               <span>Indoor Micro-Climate Audit</span>
             </div>
-            <h2 className="text-xl font-bold text-white">Indoor Air Quality (IAQ) Defense Center</h2>
+            <h2 className="text-xl font-bold text-white">
+              Indoor Air Quality (IAQ) Defense Center
+            </h2>
             <p className="text-xs text-slate-400">
-              Outdoor smog infiltrates homes through gaps. Scientific hacks keep your indoor sanctuary breathable.
+              Outdoor smog infiltrates homes through gaps. Scientific hacks keep your indoor
+              sanctuary breathable.
             </p>
           </div>
 
@@ -78,8 +73,12 @@ export const IAQLab: React.FC<IAQLabProps> = ({
             </div>
             <div className="text-slate-600 font-bold">vs</div>
             <div className="text-center">
-              <span className="text-[10px] text-teal-400 block font-medium">Estimated Indoor AQI</span>
-              <span className="text-2xl font-black text-emerald-400">{audit.currentIndoorAQIEstimate}</span>
+              <span className="text-[10px] text-teal-400 block font-medium">
+                Estimated Indoor AQI
+              </span>
+              <span className="text-2xl font-black text-emerald-400">
+                {audit.currentIndoorAQIEstimate}
+              </span>
             </div>
           </div>
         </div>
@@ -93,7 +92,9 @@ export const IAQLab: React.FC<IAQLabProps> = ({
                   <Sun className="w-4 h-4 text-amber-400" />
                   <span>Optimal Natural Ventilation Window</span>
                 </span>
-                <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full border uppercase ${winBadge.text} ${winBadge.bg} ${winBadge.border}`}>
+                <span
+                  className={`text-[10px] font-bold px-2 py-0.5 rounded-full border uppercase ${winBadge.text} ${winBadge.bg} ${winBadge.border}`}
+                >
                   {audit.safeVentilationWindow.windowStatus}
                 </span>
               </div>
@@ -105,7 +106,8 @@ export const IAQLab: React.FC<IAQLabProps> = ({
               </p>
             </div>
             <div className="mt-3 pt-2 border-t border-slate-700 text-[11px] text-slate-400">
-              💡 Tip: Avoid opening windows before 11:00 AM or after 5:30 PM due to surface inversion pooling.
+              💡 Tip: Avoid opening windows before 11:00 AM or after 5:30 PM due to surface
+              inversion pooling.
             </div>
           </div>
 
@@ -126,7 +128,9 @@ export const IAQLab: React.FC<IAQLabProps> = ({
             </div>
             <div className="mt-3 pt-2 border-t border-slate-700 flex justify-between text-[11px] text-slate-400">
               <span>Target Air Changes / Hour:</span>
-              <span className="font-bold text-teal-300">{audit.purifierOptimization.roomAchRate} ACH</span>
+              <span className="font-bold text-teal-300">
+                {audit.purifierOptimization.roomAchRate} ACH
+              </span>
             </div>
           </div>
         </div>
@@ -139,39 +143,64 @@ export const IAQLab: React.FC<IAQLabProps> = ({
           <span>Interactive Room Air Purifier Sizing (CADR Calculator)</span>
         </h3>
         <p className="text-xs text-slate-400 mb-4">
-          Calculate the exact Clean Air Delivery Rate (CADR in CFM) required to keep your bedroom free of toxic winter smog.
+          Calculate the exact Clean Air Delivery Rate (CADR in CFM) required to keep your bedroom
+          free of toxic winter smog.
         </p>
 
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-4">
           <div>
-            <label className="text-xs text-slate-300 block mb-1">Room Length: {roomLength} ft</label>
+            <label htmlFor="roomLengthSlider" className="text-xs text-slate-300 block mb-1">
+              Room Length: {roomLength} ft
+            </label>
             <input
+              id="roomLengthSlider"
               type="range"
               min="8"
               max="30"
               value={roomLength}
+              aria-label="Room Length in feet"
+              aria-valuenow={roomLength}
+              aria-valuemin={8}
+              aria-valuemax={30}
+              aria-valuetext={`${roomLength} feet`}
               onChange={(e) => setRoomLength(Number(e.target.value))}
               className="w-full accent-teal-400 h-1.5 bg-slate-700 rounded-lg cursor-pointer"
             />
           </div>
           <div>
-            <label className="text-xs text-slate-300 block mb-1">Room Width: {roomWidth} ft</label>
+            <label htmlFor="roomWidthSlider" className="text-xs text-slate-300 block mb-1">
+              Room Width: {roomWidth} ft
+            </label>
             <input
+              id="roomWidthSlider"
               type="range"
               min="8"
               max="25"
               value={roomWidth}
+              aria-label="Room Width in feet"
+              aria-valuenow={roomWidth}
+              aria-valuemin={8}
+              aria-valuemax={25}
+              aria-valuetext={`${roomWidth} feet`}
               onChange={(e) => setRoomWidth(Number(e.target.value))}
               className="w-full accent-teal-400 h-1.5 bg-slate-700 rounded-lg cursor-pointer"
             />
           </div>
           <div>
-            <label className="text-xs text-slate-300 block mb-1">Ceiling Height: {roomHeight} ft</label>
+            <label htmlFor="roomHeightSlider" className="text-xs text-slate-300 block mb-1">
+              Ceiling Height: {roomHeight} ft
+            </label>
             <input
+              id="roomHeightSlider"
               type="range"
               min="8"
               max="14"
               value={roomHeight}
+              aria-label="Ceiling Height in feet"
+              aria-valuenow={roomHeight}
+              aria-valuemin={8}
+              aria-valuemax={14}
+              aria-valuetext={`${roomHeight} feet`}
               onChange={(e) => setRoomHeight(Number(e.target.value))}
               className="w-full accent-teal-400 h-1.5 bg-slate-700 rounded-lg cursor-pointer"
             />
@@ -181,14 +210,21 @@ export const IAQLab: React.FC<IAQLabProps> = ({
         <div className="bg-slate-800/80 border border-slate-700 rounded-xl p-4 flex flex-wrap items-center justify-between gap-4">
           <div>
             <span className="text-[11px] text-slate-400 block">Room Volume:</span>
-            <span className="text-base font-bold text-white">{roomVolumeCuFt.toLocaleString()} cu. ft ({Math.round(roomVolumeCuFt * 0.0283)} m³)</span>
+            <span className="text-base font-bold text-white">
+              {roomVolumeCuFt.toLocaleString()} cu. ft ({Math.round(roomVolumeCuFt * 0.0283)} m³)
+            </span>
           </div>
           <div>
-            <span className="text-[11px] text-teal-400 block font-medium">Recommended CADR for Severe Smog:</span>
-            <span className="text-xl font-black text-teal-300">{targetCadrCfm} CFM ({Math.round(targetCadrCfm * 1.7)} m³/h)</span>
+            <span className="text-[11px] text-teal-400 block font-medium">
+              Recommended CADR for Severe Smog:
+            </span>
+            <span className="text-xl font-black text-teal-300">
+              {targetCadrCfm} CFM ({Math.round(targetCadrCfm * 1.7)} m³/h)
+            </span>
           </div>
           <div className="text-xs text-slate-300 max-w-xs">
-            Achieves ~4.5 complete air exchanges per hour, dropping PM2.5 from 300 to &lt;25 within 35 minutes.
+            Achieves ~4.5 complete air exchanges per hour, dropping PM2.5 from 300 to &lt;25 within
+            35 minutes.
           </div>
         </div>
       </div>
@@ -201,7 +237,8 @@ export const IAQLab: React.FC<IAQLabProps> = ({
             <span>NASA Clean Air Study — Recommended Indoor Plants</span>
           </h3>
           <p className="text-xs text-slate-400">
-            Natural bio-filtration: leaves and root microbiomes absorb volatile organic compounds (VOCs) and settle suspended particulate dust.
+            Natural bio-filtration: leaves and root microbiomes absorb volatile organic compounds
+            (VOCs) and settle suspended particulate dust.
           </p>
         </div>
 
@@ -221,9 +258,7 @@ export const IAQLab: React.FC<IAQLabProps> = ({
                 <div className="text-[11px] font-mono text-slate-400 italic mb-2">
                   {plant.scientificName}
                 </div>
-                <p className="text-xs text-slate-300 leading-normal mb-3">
-                  {plant.nasaBenefit}
-                </p>
+                <p className="text-xs text-slate-300 leading-normal mb-3">{plant.nasaBenefit}</p>
               </div>
 
               <div className="pt-2 border-t border-slate-700/60 text-[10px] text-slate-400 flex items-center space-x-1">

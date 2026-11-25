@@ -1,19 +1,13 @@
 export type AQICategory =
-  | 'Good'
-  | 'Satisfactory'
-  | 'Moderate'
-  | 'Poor'
-  | 'Very Poor'
-  | 'Severe'
-  | 'Hazardous';
+  'Good' | 'Satisfactory' | 'Moderate' | 'Poor' | 'Very Poor' | 'Severe' | 'Hazardous';
 
 export interface PollutantValues {
-  pm25: number;       // ug/m3
-  pm10: number;       // ug/m3
-  no2: number;        // ug/m3
-  so2: number;        // ug/m3
-  co: number;         // mg/m3
-  o3: number;         // ug/m3
+  pm25: number; // ug/m3
+  pm10: number; // ug/m3
+  no2: number; // ug/m3
+  so2: number; // ug/m3
+  co: number; // mg/m3
+  o3: number; // ug/m3
 }
 
 export interface HourlyAQI {
@@ -71,7 +65,11 @@ export interface HouseholdProfile {
 
 export interface RoutineItem {
   id: string;
-  timeSlot: 'Morning (06:00 - 11:00)' | 'Afternoon (11:00 - 17:00)' | 'Evening (17:00 - 22:00)' | 'Night (22:00 - 06:00)';
+  timeSlot:
+    | 'Morning (06:00 - 11:00)'
+    | 'Afternoon (11:00 - 17:00)'
+    | 'Evening (17:00 - 22:00)'
+    | 'Night (22:00 - 06:00)';
   title: string;
   activity: string;
   lowEmissionAlternative: string;

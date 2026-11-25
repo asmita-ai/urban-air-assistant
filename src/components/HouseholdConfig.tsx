@@ -14,7 +14,7 @@ import {
   Sliders,
   Check,
   Baby,
-  UserCheck
+  UserCheck,
 } from 'lucide-react';
 
 interface HouseholdConfigProps {
@@ -36,9 +36,26 @@ export const HouseholdConfig: React.FC<HouseholdConfigProps> = ({
   const vulnerabilityScore = calculateHouseholdVulnerability(profile, currentAQI);
 
   const getVulnerabilityColor = (score: number) => {
-    if (score < 40) return { text: 'text-emerald-400', bg: 'bg-emerald-500/20', border: 'border-emerald-500/30', label: 'Low Risk' };
-    if (score < 70) return { text: 'text-amber-400', bg: 'bg-amber-500/20', border: 'border-amber-500/30', label: 'Moderate Vulnerability' };
-    return { text: 'text-rose-400', bg: 'bg-rose-500/20', border: 'border-rose-500/30', label: 'High / Critical Vulnerability' };
+    if (score < 40)
+      return {
+        text: 'text-emerald-400',
+        bg: 'bg-emerald-500/20',
+        border: 'border-emerald-500/30',
+        label: 'Low Risk',
+      };
+    if (score < 70)
+      return {
+        text: 'text-amber-400',
+        bg: 'bg-amber-500/20',
+        border: 'border-amber-500/30',
+        label: 'Moderate Vulnerability',
+      };
+    return {
+      text: 'text-rose-400',
+      bg: 'bg-rose-500/20',
+      border: 'border-rose-500/30',
+      label: 'High / Critical Vulnerability',
+    };
   };
 
   const vColor = getVulnerabilityColor(vulnerabilityScore);
@@ -73,7 +90,11 @@ export const HouseholdConfig: React.FC<HouseholdConfigProps> = ({
     });
   };
 
-  const commuteOptions: Array<{ id: HouseholdProfile['commuteMode']; label: string; icon: string }> = [
+  const commuteOptions: Array<{
+    id: HouseholdProfile['commuteMode'];
+    label: string;
+    icon: string;
+  }> = [
     { id: 'metro', label: 'Metro Transit', icon: '🚇' },
     { id: 'bus', label: 'Electric / CNG Bus', icon: '🚌' },
     { id: 'car', label: 'Private Car', icon: '🚗' },
@@ -93,12 +114,15 @@ export const HouseholdConfig: React.FC<HouseholdConfigProps> = ({
           </div>
           <h3 className="text-xl font-bold text-white">Your Family & Lifestyle Context</h3>
           <p className="text-xs text-slate-400">
-            Recommendations adapt directly to who lives with you, daily commute, and home defense measures.
+            Recommendations adapt directly to who lives with you, daily commute, and home defense
+            measures.
           </p>
         </div>
 
         {/* Vulnerability Score Card */}
-        <div className={`p-3 rounded-xl border flex items-center space-x-3 ${vColor.bg} ${vColor.border}`}>
+        <div
+          className={`p-3 rounded-xl border flex items-center space-x-3 ${vColor.bg} ${vColor.border}`}
+        >
           <div className="text-center">
             <span className={`text-2xl font-black ${vColor.text}`}>{vulnerabilityScore}</span>
             <span className="text-[10px] block text-slate-400 font-mono">/ 100</span>
@@ -139,7 +163,13 @@ export const HouseholdConfig: React.FC<HouseholdConfigProps> = ({
               >
                 <div className="flex items-center space-x-3">
                   <div className="w-8 h-8 rounded-lg bg-slate-700 flex items-center justify-center text-teal-300 text-sm font-bold">
-                    {member.type === 'child' ? <Baby className="w-4 h-4" /> : (member.type === 'senior' ? <UserCheck className="w-4 h-4" /> : <Users className="w-4 h-4" />)}
+                    {member.type === 'child' ? (
+                      <Baby className="w-4 h-4" />
+                    ) : member.type === 'senior' ? (
+                      <UserCheck className="w-4 h-4" />
+                    ) : (
+                      <Users className="w-4 h-4" />
+                    )}
                   </div>
                   <div>
                     <div className="flex items-center space-x-2">
@@ -172,7 +202,10 @@ export const HouseholdConfig: React.FC<HouseholdConfigProps> = ({
 
           {/* Add Member Form */}
           {isAdding && (
-            <form onSubmit={handleAddMember} className="bg-slate-800 border border-teal-500/40 rounded-xl p-3 space-y-3">
+            <form
+              onSubmit={handleAddMember}
+              className="bg-slate-800 border border-teal-500/40 rounded-xl p-3 space-y-3"
+            >
               <div className="grid grid-cols-2 gap-2">
                 <input
                   type="text"
@@ -260,11 +293,19 @@ export const HouseholdConfig: React.FC<HouseholdConfigProps> = ({
                 <span className="font-bold text-teal-400">{profile.commuteDistanceKm} km</span>
               </div>
               <input
+                id="commuteDistanceSlider"
                 type="range"
                 min="1"
                 max="50"
                 value={profile.commuteDistanceKm}
-                onChange={(e) => onUpdateProfile({ ...profile, commuteDistanceKm: Number(e.target.value) })}
+                aria-label="One-Way Commute Distance in kilometers"
+                aria-valuenow={profile.commuteDistanceKm}
+                aria-valuemin={1}
+                aria-valuemax={50}
+                aria-valuetext={`${profile.commuteDistanceKm} km`}
+                onChange={(e) =>
+                  onUpdateProfile({ ...profile, commuteDistanceKm: Number(e.target.value) })
+                }
                 className="w-full accent-teal-400 h-1.5 bg-slate-700 rounded-lg cursor-pointer"
               />
               <div className="flex justify-between text-[10px] text-slate-500 mt-0.5">
@@ -279,7 +320,19 @@ export const HouseholdConfig: React.FC<HouseholdConfigProps> = ({
           <div className="pt-2 border-t border-slate-800 grid grid-cols-1 sm:grid-cols-2 gap-3">
             {/* Air Purifier Toggle */}
             <div
-              onClick={() => onUpdateProfile({ ...profile, hasAirPurifier: !profile.hasAirPurifier })}
+              role="switch"
+              tabIndex={0}
+              aria-checked={profile.hasAirPurifier}
+              aria-label="Toggle HEPA Air Purifier"
+              onKeyDown={(e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                  e.preventDefault();
+                  onUpdateProfile({ ...profile, hasAirPurifier: !profile.hasAirPurifier });
+                }
+              }}
+              onClick={() =>
+                onUpdateProfile({ ...profile, hasAirPurifier: !profile.hasAirPurifier })
+              }
               className={`p-3 rounded-xl border cursor-pointer transition-all flex items-center justify-between ${
                 profile.hasAirPurifier
                   ? 'bg-teal-500/20 border-teal-500/60'
@@ -287,15 +340,23 @@ export const HouseholdConfig: React.FC<HouseholdConfigProps> = ({
               }`}
             >
               <div className="flex items-center space-x-2.5">
-                <Shield className={`w-4 h-4 ${profile.hasAirPurifier ? 'text-teal-400' : 'text-slate-500'}`} />
+                <Shield
+                  className={`w-4 h-4 ${profile.hasAirPurifier ? 'text-teal-400' : 'text-slate-500'}`}
+                />
                 <div>
                   <div className="text-xs font-bold text-white">HEPA Air Purifier</div>
-                  <div className="text-[10px] text-slate-400">{profile.hasAirPurifier ? 'Active at Home' : 'None installed'}</div>
+                  <div className="text-[10px] text-slate-400">
+                    {profile.hasAirPurifier ? 'Active at Home' : 'None installed'}
+                  </div>
                 </div>
               </div>
-              <div className={`w-5 h-5 rounded-md flex items-center justify-center border ${
-                profile.hasAirPurifier ? 'bg-teal-500 border-teal-400 text-slate-950' : 'border-slate-600'
-              }`}>
+              <div
+                className={`w-5 h-5 rounded-md flex items-center justify-center border ${
+                  profile.hasAirPurifier
+                    ? 'bg-teal-500 border-teal-400 text-slate-950'
+                    : 'border-slate-600'
+                }`}
+              >
                 {profile.hasAirPurifier && <Check className="w-3.5 h-3.5 stroke-[3]" />}
               </div>
             </div>
@@ -311,14 +372,28 @@ export const HouseholdConfig: React.FC<HouseholdConfigProps> = ({
               </div>
               <div className="flex items-center space-x-2">
                 <button
-                  onClick={() => onUpdateProfile({ ...profile, indoorPlantsCount: Math.max(0, profile.indoorPlantsCount - 1) })}
+                  aria-label="Decrease indoor plants count"
+                  onClick={() =>
+                    onUpdateProfile({
+                      ...profile,
+                      indoorPlantsCount: Math.max(0, profile.indoorPlantsCount - 1),
+                    })
+                  }
                   className="w-6 h-6 rounded bg-slate-700 hover:bg-slate-600 text-white font-bold text-xs flex items-center justify-center"
                 >
                   -
                 </button>
-                <span className="text-xs font-bold text-teal-300 w-4 text-center">{profile.indoorPlantsCount}</span>
+                <span className="text-xs font-bold text-teal-300 w-4 text-center">
+                  {profile.indoorPlantsCount}
+                </span>
                 <button
-                  onClick={() => onUpdateProfile({ ...profile, indoorPlantsCount: profile.indoorPlantsCount + 1 })}
+                  aria-label="Increase indoor plants count"
+                  onClick={() =>
+                    onUpdateProfile({
+                      ...profile,
+                      indoorPlantsCount: profile.indoorPlantsCount + 1,
+                    })
+                  }
                   className="w-6 h-6 rounded bg-slate-700 hover:bg-slate-600 text-white font-bold text-xs flex items-center justify-center"
                 >
                   +

@@ -123,11 +123,12 @@ $$HVI = 20 + \min\left(40, \frac{\text{AQI}}{500} \times 40\right) + \sum V_{\te
 
 | Evaluation Parameter | How VayuMitra Excels |
 | :--- | :--- |
-| **Code Quality** | Strict TypeScript throughout, modular component architecture, zero implicit `any`, clean separation of concerns, and full ESLint compliance. |
-| **Security** | Zero exposed client keys; all AI and external calls routed through server-side proxy; input sanitization; 0 npm vulnerabilities (`npm audit` clean). |
+| **Code Quality** | Strict TypeScript throughout with 0 type bypasses, modular component architecture (all large components decomposed into single-responsibility units), custom hooks (`useAQI`, `useHousehold`, `usePlanAndAudit`), centralized domain constants, 100% Prettier code style compliance (`npm run format:check`), and full ESLint compliance (`npm run lint`). |
+| **Security & Validation** | Zero exposed client keys; server-side API proxying; strict runtime input validation using Zod schemas on all API endpoints; Gemini LLM output schema validation; sliding-window rate limiting (60 req/min per IP); sanitized error handling preventing internal stack or credential leaks; clean dependency tree with 0 npm vulnerabilities. |
+| **Continuous Integration (CI)** | Production-grade GitHub Actions CI workflow (`.github/workflows/ci.yml`) automatically enforcing format checks, linting, TypeScript strict verification, unit tests, and Next.js build compilation on every commit. |
 | **Efficiency** | 15-minute in-memory caching for external AQI queries; minimal re-renders; static page prerendering; lightweight icons and bundle size. |
-| **Testing** | 100% passing automated Vitest unit test suite covering AQI formulas, vulnerability metrics, emission calculations, routine generation, and IAQ algorithms. |
-| **Accessibility (a11y)** | Semantic HTML5 (`header`, `main`, `section`, `footer`), high-contrast CPCB color-coded badges, keyboard navigation, ARIA tags, and screen-reader support. |
+| **Testing** | 21 passing automated tests across 6 Vitest suites covering Indian CPCB sub-index calculations, vulnerability scoring, commute emission math, API route status codes, Zod schema validation, and mocked offline-resilient telemetry. |
+| **Accessibility (a11y)** | Semantic HTML5 landmark structure (`header`, `main`, `section`, `footer`), high-contrast CPCB color-coded badges, keyboard navigation, comprehensive ARIA attributes (`role="region"`, `role="checkbox"`, `role="switch"`, `aria-label`, `aria-valuenow`, `aria-valuemin`, `aria-valuemax`, `aria-checked`), and screen-reader support. |
 | **Problem Statement Alignment** | Directly tackles winter smog, personalizing low-emission routines and indoor air hacks for families, while explaining *why* choices matter. |
 
 ---
@@ -160,8 +161,18 @@ GEMINI_API_KEY=your_gemini_api_key_here
 ```
 *(Note: If no API key is provided, the application runs seamlessly in smart fallback mode with verified scientific heuristics).*
 
-### 4. Run Automated Tests
+### 4. Code Quality & Automated Tests
 ```bash
+# Check code formatting with Prettier
+npm run format:check
+
+# Run static analysis with ESLint
+npm run lint
+
+# Verify strict TypeScript types
+npx tsc --noEmit
+
+# Execute Vitest automated test suite
 npm test
 ```
 

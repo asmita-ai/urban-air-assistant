@@ -59,8 +59,20 @@ describe('AQI Calculation Engine', () => {
     const vulnerableProfile: HouseholdProfile = {
       city: 'Delhi',
       familyMembers: [
-        { id: '1', name: 'Grandmother', type: 'senior', hasRespiratoryIssue: true, activityLevel: 'low' },
-        { id: '2', name: 'Toddler', type: 'infant', hasRespiratoryIssue: false, activityLevel: 'low' },
+        {
+          id: '1',
+          name: 'Grandmother',
+          type: 'senior',
+          hasRespiratoryIssue: true,
+          activityLevel: 'low',
+        },
+        {
+          id: '2',
+          name: 'Toddler',
+          type: 'infant',
+          hasRespiratoryIssue: false,
+          activityLevel: 'low',
+        },
       ],
       commuteMode: 'two-wheeler',
       commuteDistanceKm: 15,
@@ -72,7 +84,13 @@ describe('AQI Calculation Engine', () => {
     const protectedProfile: HouseholdProfile = {
       city: 'Delhi',
       familyMembers: [
-        { id: '1', name: 'Adult', type: 'adult', hasRespiratoryIssue: false, activityLevel: 'moderate' },
+        {
+          id: '1',
+          name: 'Adult',
+          type: 'adult',
+          hasRespiratoryIssue: false,
+          activityLevel: 'moderate',
+        },
       ],
       commuteMode: 'wfh',
       commuteDistanceKm: 0,

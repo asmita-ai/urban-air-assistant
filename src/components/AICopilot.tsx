@@ -2,14 +2,7 @@
 
 import React, { useState, useRef, useEffect } from 'react';
 import { ChatMessage, AQIData, HouseholdProfile } from '@/types';
-import {
-  Send,
-  Sparkles,
-  Bot,
-  User,
-  RotateCcw,
-  Lightbulb
-} from 'lucide-react';
+import { Send, Sparkles, Bot, User, RotateCcw, Lightbulb } from 'lucide-react';
 
 interface AICopilotProps {
   aqiData: AQIData;
@@ -92,7 +85,8 @@ How can I help protect your family or optimize your low-emission routine today?`
       const errorMsg: ChatMessage = {
         id: `err-${Date.now()}`,
         role: 'assistant',
-        content: 'I encountered an issue connecting to the Gemini server. However, based on current AQI, keep your home windows sealed and wear an N95 mask outdoors.',
+        content:
+          'I encountered an issue connecting to the Gemini server. However, based on current AQI, keep your home windows sealed and wear an N95 mask outdoors.',
         timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
       };
       setMessages((prev) => [...prev, errorMsg]);
